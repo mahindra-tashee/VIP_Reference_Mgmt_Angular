@@ -1,0 +1,23 @@
+/* canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
+.example-card {
+    max-width: 400px;
+} */
+
+.example-card{
+    width: 100% !important;
+    height: 100% !important;
+}
+canvas{
+    width: 950px !important;
+    height: 350px !important; 
+}
+.mat-mdc-card-header{
+    justify-content: center;
+}
+.canvas-chart{
+    display: flex;
+    justify-content: center;
+}
