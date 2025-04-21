@@ -1,0 +1,151 @@
+<div class="grid-layout">
+    <!-- Left Side: Dashboard -->
+    <div class="dashboard-card">
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title style="cursor: pointer;">ADD VIP REFERENCE</mat-card-title>
+        </mat-card-header>
+  
+        <mat-card-content class="reference-form-container">
+
+           <form [formGroup]="addVipReferenceDetails" >
+    
+            <div class="form-field">
+              <div class="label-field">
+                <label>Refernce No.</label>
+              </div>
+                <input matInput formControlName="referenceNo" class="mat-input" placeholder="Reference No.">
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Date Of Letter</label>
+              </div>
+              
+              <input matInput [matDatepicker]="picker1" formControlName="dateOfLetter" class="mat-input" placeholder="Date Of Letter">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Date Of Receiving</label>
+              </div>
+             
+              <input matInput [matDatepicker]="picker2" formControlName="dateOfReceiving" class="mat-input" placeholder="Date Of Receiving">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Date Of Entry</label>
+              </div>
+              <input matInput [matDatepicker]="picker3" formControlName="dateOfEntry" class="mat-input" placeholder="Date Of Entry">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Name Of Diginitary</label>
+              </div>
+              
+              <input matInput formControlName="nameOfDiginitary" class="mat-input" placeholder="Name Of Diginitary">
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>E-Mail Id</label>
+              </div>
+              <input matInput formControlName="emailId" class="mat-input" placeholder="E-Mail ID">
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Designation</label>
+              </div>
+              
+              <select matNativeControl formControlName="designation">
+                <option value="" disabled selected>Select Designation</option>
+                <option value="so">Section Officer</option>
+                <option value="us">Under Secretary</option>
+                <option value="dd">Deputy Director</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <div class="label-field">
+                <label>State</label>
+              </div>
+              
+              <select matNativeControl formControlName="state">
+                <option value="" disabled selected>Select State</option>
+                <option value="so">Maharashtra</option>
+                <option value="us">Uttar Pradesh</option>
+                <option value="dd">Bihar</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <div class="label-field">
+                <label>Constituency</label>
+              </div>
+              
+              <input matInput formControlName="constituency" class="mat-input" placeholder="Constituency">
+            </div>
+            <div class="form-field">
+              <div class="label-field">
+                <label>Prirority</label>
+              </div>
+              
+              <input matInput formControlName="prirority" class="mat-input" placeholder="Prirority">
+            </div>
+
+            <div class="form-field">
+              <div class="label-field">
+                <label>Category Of Subject</label>
+              </div>
+
+              <select matNativeControl formControlName="catgOfSubject">
+                <option value="" disabled selected>Select Category Of Subject</option>
+                <option value="so">BharatMala</option>
+                <option value="us">Roadway</option>
+                <option value="dd">Highway</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <div class="label-field">
+                <label>Sub-Category Of Subject</label>
+              </div>
+              
+              <input matInput formControlName="subCatgOfSubject" class="mat-input" >
+            </div>
+
+            <div class="form-field">
+              <div class="label-field">
+                <label>Subject/Issue</label>
+              </div>
+              <textarea matInput formControlName="subjectOrIssue" rows="4" placeholder="Please Specify Subject or Issue"></textarea>
+            </div>
+        
+            <button mat-raised-button color="primary">Register</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- Right Side: Table -->
+    <div class="table-card">
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Upload Documents</mat-card-title>
+        </mat-card-header>
+
+        <span  class="no-selected-queqe"> No Document Uploaded</span>
+        <mat-card-content class="card-content">
+          <button type="submit" class="file-btn" (click)="openDialog()"> <mat-icon class="file-icon">upload</mat-icon></button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

@@ -1,0 +1,41 @@
+<div class="dashboard-card">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title style="cursor: pointer;">UPLOAD DOCUMENTS</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+    <mat-card-content class="reference-form-container">
+        <form [formGroup]="uploadReferenceDocs" >
+    
+            <div class="form-field">
+              <div class="label-field">
+                <label>File Name</label>
+              </div>
+              <input type="file" (change)="onFileSelect($event)"  class="mat-input">
+                
+            </div>
+        
+            <div class="form-field">
+              <div class="label-field">
+                <label>Document Types</label>
+              </div>
+              
+              <input matInput formControlName="documentType" class="mat-input" >
+            </div>
+
+            <div class="form-field">
+                <div class="label-field">
+                  <label>Comments</label>
+                </div>
+                <textarea matInput formControlName="comments" rows="4" placeholder="Add Comments"></textarea>
+            </div>
+            <div class="form-field">
+                <div class="upload-btn-group">
+                    <button mat-raised-button color="primary">Save</button>
+                    <button mat-raised-button mat-dialog-close class="disabled-look">Close</button>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+</div>
+

@@ -1,0 +1,44 @@
+.grid-layout {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+}
+
+.mat-mdc-card-header {
+  padding-top: 40px;
+  justify-content: center;
+}
+
+.p-4 {
+  padding: 20px;
+}
+
+.example-card {
+  width: 100% !important;
+  height: 100% !important;
+}
+.mat-list{
+  margin-top: 30px;
+}
+
+.mat-list-item {
+  cursor: pointer !important;
+  border-left: 4px solid transparent;
+  transition: 0.2s all;
+  box-sizing: border-box;
+}
+
+.mat-list-item:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.mat-list-base {
+  padding-top: 0;
+}
+.no-selected-queqe{
+  display: flex;
+  background-color: #bdd6f0;
+  padding: 13px;
+  margin: 10px;
+  font-size: 14px;
+  font-weight: 550;
+}

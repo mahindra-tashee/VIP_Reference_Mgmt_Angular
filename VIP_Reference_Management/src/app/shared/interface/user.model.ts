@@ -4,6 +4,7 @@ export interface Role {
   }
   
   export interface User {
+    name:string;
     userId: number;
     userName: string;
     roles: Role[];

@@ -16,14 +16,14 @@
     padding: 4px;
   }
   
-  .mat-list-item {
+  ::ng-deep .mat-list-item {
     cursor: pointer !important;
     border-left: 4px solid transparent;
     transition: 0.2s all;
     box-sizing: border-box;
   }
   
-  .mat-list-item:hover {
+  ::ng-deep .mat-list-item:hover {
     background: rgba(0, 0, 0, 0.04);
   }
   
@@ -54,6 +54,9 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+  ::ng-deep .mat-mdc-list-item-unscoped-content{
+    display: flex;
   }
   
   mat-drawer {
@@ -90,3 +93,29 @@
     text-align: center;
     padding: 10px 0;
   }
+
+  .mat-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-button-content {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    /* space between text and icon */
+}
+
+::ng-deep .mat-mdc-card-content:first-child {
+  padding-top: 0px !important;
+}
+
+::ng-deep .mat-mdc-card-content:last-child {
+  padding-bottom: 0px !important;
+}
+.button-content {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Roboto, sans-serif;
+}

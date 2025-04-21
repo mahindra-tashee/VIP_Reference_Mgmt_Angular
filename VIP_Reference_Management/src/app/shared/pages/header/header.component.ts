@@ -1,5 +1,6 @@
 
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { User } from '../../interface/user.model';
 @Component({
   selector: 'app-header',
   standalone: false,
@@ -7,13 +8,22 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  userDetails!:User;
+  loginUserName:String="";
   @Output() menuToggled = new EventEmitter<boolean>();
-
-  user: string = 'Enea';
 
   // constructor(private authService: AuthService) { }
 
   logout(): void {
     console.log('Logged out');
+  }
+
+  ngOnInit(){
+    const userData=localStorage.getItem("user");
+
+    if(userData){
+      this.userDetails=JSON.parse(userData);
+      
+    }
   }
 }

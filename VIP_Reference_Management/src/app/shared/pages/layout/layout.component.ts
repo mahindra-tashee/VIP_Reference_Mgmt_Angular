@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -7,8 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
-
-  opened = true;
+  selectedMenu:string="User Dashboard";
+  private router=inject(Router);
+  isMenuOpen = false;
+  opened = false;
 
   toggle(): void {
     this.opened = !this.opened;
@@ -47,5 +50,16 @@ export class LayoutComponent {
       ],
     },
   ];
+
+
+  switchMenu(option: string): void {
+    this.selectedMenu = option;
+    if(this.selectedMenu == "User Desktop"){
+      this.router.navigate(['/dashboard/desktop']);
+    }
+    else{
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
 }

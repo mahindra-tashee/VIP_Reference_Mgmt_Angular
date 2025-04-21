@@ -11,6 +11,12 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { VipInitiatorComponent } from './pages/vip-initiator/vip-initiator.component';
+import { VipAssignerComponent } from './pages/vip-assigner/vip-assigner.component';
+import { VipAssigneeComponent } from './pages/vip-assignee/vip-assignee.component';
+import { VipFinalReplyComponent } from './pages/vip-final-reply/vip-final-reply.component';
+import { InitiatorFormComponent } from './pages/initiator-form/initiator-form.component';
+import { UploadInitiatorDocsComponent } from './pages/upload-initiator-docs/upload-initiator-docs.component';
 
 
 
@@ -21,7 +27,13 @@ import { HttpClientModule } from '@angular/common/http';
     DesktopComponent,
     HeaderComponent,
     LayoutComponent,
-    HomeComponent
+    HomeComponent,
+    VipInitiatorComponent,
+    VipAssignerComponent,
+    VipAssigneeComponent,
+    VipFinalReplyComponent,
+    InitiatorFormComponent,
+    UploadInitiatorDocsComponent
   ],
   imports: [
     CommonModule,

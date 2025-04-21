@@ -1,1 +1,39 @@
-<p>desktop works!</p>
+<div class="grid-layout">
+  <!-- Left Side: Dashboard -->
+  <div class="dashboard-card">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title style="cursor: pointer;" (click)="selectedQueue = ''">QUEUE LIST</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+          <mat-list class="mat-list">
+            <mat-list-item *ngFor="let queue of queues" appearance="outlined" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" class="mat-list-item" (click)="selectedQueue = queue.path">
+              <mat-icon matListIcon> {{ queue.icon }}</mat-icon>&nbsp;
+              {{ queue.name }}
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Right Side: Table -->
+  <div class="table-card">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{selectedQueue == "" ? 'MY QUEUE LIST':selectedQueue | uppercase}}</mat-card-title>
+      </mat-card-header>
+
+      <ng-container [ngSwitch]="selectedQueue">
+        <span *ngSwitchCase="''" class="no-selected-queqe"> No Queue Selected</span>
+        <app-vip-initiator *ngSwitchCase="'vip-initiator'"></app-vip-initiator>
+        <app-vip-assigner *ngSwitchCase="'vip-assigner'"></app-vip-assigner>
+        <app-vip-assignee *ngSwitchCase="'vip-assignee'"></app-vip-assignee>
+        <app-vip-final-reply *ngSwitchCase="'vip-final-reply'"></app-vip-final-reply>
+      </ng-container>
+    </mat-card>
+  </div>
+</div>

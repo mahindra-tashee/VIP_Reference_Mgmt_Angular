@@ -37,6 +37,26 @@
       </mat-drawer>
   
       <mat-drawer-content [class.margin-left]="opened">
+        <ng-container>
+          <mat-card appearance="outlined">
+            <mat-card-content class="mat-card-content">
+              <div class="button-content">Dashboard</div>
+              <div>
+                <button mat-button [matMenuTriggerFor]="menuDropdown" (menuOpened)="isMenuOpen = true" (menuClosed)="isMenuOpen = false">
+                  <span class="menu-button-content">
+                    <span>{{ selectedMenu }}</span>
+                    <mat-icon>{{ isMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+                  </span>
+                </button>
+          
+                <mat-menu #menuDropdown="matMenu">
+                  <button mat-menu-item *ngIf="selectedMenu !== 'User Dashboard'" (click)="switchMenu('User Dashboard')">User Dashboard</button>
+                  <button mat-menu-item *ngIf="selectedMenu !== 'User Desktop'" (click)="switchMenu('User Desktop')">User Desktop</button>
+                </mat-menu>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
         <router-outlet></router-outlet>
       </mat-drawer-content>
     </mat-drawer-container>

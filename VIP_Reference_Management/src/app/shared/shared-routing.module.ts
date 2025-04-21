@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DesktopComponent } from './pages/desktop/desktop.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
+import { InitiatorFormComponent } from './pages/initiator-form/initiator-form.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     children:[
       { path: '', component:DashboardComponent },
       { path: 'desktop', component: DesktopComponent },
+      { path: 'add-reference', component: InitiatorFormComponent },
     ]
   }
 ];
