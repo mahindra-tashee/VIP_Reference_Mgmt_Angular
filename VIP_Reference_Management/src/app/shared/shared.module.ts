@@ -17,6 +17,7 @@ import { VipAssigneeComponent } from './pages/vip-assignee/vip-assignee.componen
 import { VipFinalReplyComponent } from './pages/vip-final-reply/vip-final-reply.component';
 import { InitiatorFormComponent } from './pages/initiator-form/initiator-form.component';
 import { UploadInitiatorDocsComponent } from './pages/upload-initiator-docs/upload-initiator-docs.component';
+import { ViewReferenceComponent } from './pages/view-reference/view-reference.component';
 
 
 
@@ -33,7 +34,8 @@ import { UploadInitiatorDocsComponent } from './pages/upload-initiator-docs/uplo
     VipAssigneeComponent,
     VipFinalReplyComponent,
     InitiatorFormComponent,
-    UploadInitiatorDocsComponent
+    UploadInitiatorDocsComponent,
+    ViewReferenceComponent
   ],
   imports: [
     CommonModule,

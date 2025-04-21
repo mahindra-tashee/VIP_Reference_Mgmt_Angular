@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-desktop',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './desktop.component.css'
 })
 export class DesktopComponent {
+  searchVipReference!:FormGroup;
   selectedQueue: string = '';
   queues = [
     { name: 'VIP Initiator', path: 'vip-initiator', icon:'person_add' },
@@ -14,4 +16,14 @@ export class DesktopComponent {
     { name: 'VIP Assignee', path: 'vip-assignee', icon:'assignment_turned_in' },
     { name: 'VIP Final Reply', path: 'vip-final-reply', icon:'task_alt' }
   ];
+
+  ngOnInit(){
+    this.searchVipReference=new FormGroup({
+      "selecteQueue":new FormControl(""),
+      "processName":new FormControl(""),
+      "workshopName":new FormControl(""),
+      "variantName":new FormControl(""),
+      "registrationNo":new FormControl("")
+    })
+  }
 }

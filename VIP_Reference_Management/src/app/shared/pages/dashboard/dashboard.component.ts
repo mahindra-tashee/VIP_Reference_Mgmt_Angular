@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { User } from '../../interface/user.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewReferenceComponent } from '../view-reference/view-reference.component';
 Chart.register(...registerables);
 
 export interface VipReference {
@@ -114,6 +116,7 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild('myChart') myChart: ElementRef | undefined;  // Access canvas via ViewChild
   chart: any;
   private router=inject(Router);
+  private dialog=inject(MatDialog);
 
 
   public config: any = {
@@ -180,8 +183,9 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   viewReference(ref: VipReference) {
-    // Placeholder for view logic, e.g. routing or dialog
-    alert(`Viewing reference: ${ref.referenceNo}`);
+    const viewReferenceDialog=this.dialog.open(ViewReferenceComponent,{
+      data:ref
+    });``
   }
 
   getPriorityClass(priority: string): string {
