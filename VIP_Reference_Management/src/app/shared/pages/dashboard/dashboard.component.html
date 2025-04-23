@@ -33,7 +33,7 @@
       </mat-card-header>
 
       <div class="overflow-x-auto p-4">
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 border">
+        <table mat-table [dataSource]="VipReferenceData" matSort class="mat-elevation-z8 border">
 
           <!-- Reference Number Column -->
           <ng-container matColumnDef="referenceNo">
@@ -54,10 +54,10 @@
           </ng-container>
 
           <!-- Priority Column -->
-          <ng-container matColumnDef="priority">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+          <ng-container matColumnDef="prirority">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Prirority</th>
             <td mat-cell *matCellDef="let element">
-              {{element.priority}}
+              {{element.prirority}}
             </td>
           </ng-container>
 

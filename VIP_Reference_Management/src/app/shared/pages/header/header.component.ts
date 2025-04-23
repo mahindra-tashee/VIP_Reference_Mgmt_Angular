@@ -8,7 +8,7 @@ import { User } from '../../interface/user.model';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  userDetails!:User;
+  userDetails?:User;
   loginUserName:String="";
   @Output() menuToggled = new EventEmitter<boolean>();
 
@@ -23,7 +23,6 @@ export class HeaderComponent {
 
     if(userData){
       this.userDetails=JSON.parse(userData);
-      
     }
   }
 }

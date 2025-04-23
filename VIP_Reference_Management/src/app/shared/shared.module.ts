@@ -18,7 +18,7 @@ import { VipFinalReplyComponent } from './pages/vip-final-reply/vip-final-reply.
 import { InitiatorFormComponent } from './pages/initiator-form/initiator-form.component';
 import { UploadInitiatorDocsComponent } from './pages/upload-initiator-docs/upload-initiator-docs.component';
 import { ViewReferenceComponent } from './pages/view-reference/view-reference.component';
-
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 
 @NgModule({
@@ -43,7 +43,8 @@ import { ViewReferenceComponent } from './pages/view-reference/view-reference.co
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxUiLoaderModule
   ]
 })
 export class SharedModule { }

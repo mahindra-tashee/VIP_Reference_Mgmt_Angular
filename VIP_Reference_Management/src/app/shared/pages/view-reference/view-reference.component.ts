@@ -21,7 +21,7 @@ export class ViewReferenceComponent {
     "referenceNo":new FormControl(),
     "subject":new FormControl(),
     "receivedDate":new FormControl(),
-    "priority":new FormControl(),
+    "prirority":new FormControl(),
     "currentQueue":new FormControl(),
     "status":new FormControl(),
     "actions":new FormControl()
@@ -36,8 +36,8 @@ export class ViewReferenceComponent {
     this.viewReference.get('subject')?.disable()
     this.viewReference.get('receivedDate')?.setValue(this.referenceDetails.receivedDate)
     this.viewReference.get('receivedDate')?.disable()
-    this.viewReference.get('priority')?.setValue(this.referenceDetails.priority)
-    this.viewReference.get('priority')?.disable()
+    this.viewReference.get('prirority')?.setValue(this.referenceDetails.prirority)
+    this.viewReference.get('prirority')?.disable()
     this.viewReference.get('currentQueue')?.setValue(this.referenceDetails.currentQueue)
     this.viewReference.get('currentQueue')?.disable()
     this.viewReference.get('status')?.setValue(this.referenceDetails.status)

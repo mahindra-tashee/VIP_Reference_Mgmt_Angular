@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
-    <button (click)="menuToggled.emit(true)" mat-icon-button>
+    <!-- <button (click)="menuToggled.emit(true)" mat-icon-button>
       <mat-icon>menu</mat-icon>
-    </button>
-    <span class="title" routerLink="/">VIP Reference Management</span>
+    </button> -->
+    <span class="title" [routerLink]="['/dashboard']">VIP Reference Management</span>
     <span class="spacer"></span>
-    <span class="welcome-text">{{ this.userDetails.name }}</span>
+    <span class="welcome-text">{{ userDetails?.name }}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>person_pin</mat-icon>
     </button>

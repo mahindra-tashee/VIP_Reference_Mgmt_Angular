@@ -1,59 +1,16 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { VipReference } from '../dashboard/dashboard.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-const ELEMENT_DATA: VipReference[] = [
-  {
-    referenceNo: 'VIP12347',
-    subject: 'Water Pipeline Maintenance',
-    receivedDate: new Date('2025-04-03'),
-    priority: 'Low',
-    currentQueue: 'VIP_Initiator',
-    status: 'Initiated'
-  },
-  {
-    referenceNo: 'VIP12348',
-    subject: 'Electricity Complaint',
-    receivedDate: new Date('2025-03-30'),
-    priority: 'High',
-    currentQueue: 'VIP_Initiator',
-    status: 'Assigned'
-  },
-  {
-    referenceNo: 'VIP12350',
-    subject: 'Street Light Repair',
-    receivedDate: new Date('2025-04-02'),
-    priority: 'Low',
-    currentQueue: 'VIP_Initiator',
-    status: 'Completed'
-  },
-  {
-    referenceNo: 'VIP12352',
-    subject: 'Public Park Renovation',
-    receivedDate: new Date('2025-04-04'),
-    priority: 'Normal',
-    currentQueue: 'VIP_Initiator',
-    status: 'In Progress'
-  },
-  {
-    referenceNo: 'VIP12353',
-    subject: 'Traffic Signal Installation',
-    receivedDate: new Date('2025-03-31'),
-    priority: 'High',
-    currentQueue: 'VIP_Initiator',
-    status: 'Initiated'
-  },
-  {
-    referenceNo: 'VIP12354',
-    subject: 'Drainage System Cleaning',
-    receivedDate: new Date('2025-04-07'),
-    priority: 'Low',
-    currentQueue: 'VIP_Initiator',
-    status: 'Completed'
-  }
-]
+import { UsermgmtService } from '../../service/usermgmt.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
+import { User } from '../../interface/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewReferenceComponent } from '../view-reference/view-reference.component';
+
 
 @Component({
   selector: 'app-vip-initiator',
@@ -62,38 +19,81 @@ const ELEMENT_DATA: VipReference[] = [
   styleUrl: './vip-initiator.component.css'
 })
 export class VipInitiatorComponent {
-
+  userDetails!:User;
+  @Input() selectedQueueData:string="";
   private router=inject(Router);
-  
+  private userMgmtService = inject(UsermgmtService);
+  private ngxService =inject(NgxUiLoaderService);
+  private toasterService=inject(ToastrService);
+  private dialog=inject(MatDialog);
+
   displayedColumns: string[] = [
     'referenceNo',
     'subject',
     'receivedDate',
-    'priority',
+    'prirority',
     'currentQueue',
     'actions'
   ];
-  dataSource = new MatTableDataSource<VipReference>(ELEMENT_DATA);
+  queueReferencesData = new MatTableDataSource<VipReference>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   ngOnInit() {
+    this.getUserDetails();
+    this.getQueueReferences();
+  }
+
+  getUserDetails(){
+    const userData=localStorage.getItem("user");
+    if(userData){
+      this.userDetails=JSON.parse(userData);
+    }
+  }
+
+  getQueueReferences(){
+    this.ngxService.start();
+    const queueData={
+      userId:this.userDetails.userId,
+      queue:this.selectedQueueData
+    }
+    this.userMgmtService.getQueueReferencesList(queueData).subscribe({
+      next:(res)=>{
+         this.queueReferencesData.data=res;
+         console.log(res)
+         this.initiatePaginator();
+      },
+      error:(err)=>{
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  initiatePaginator(){
     setTimeout(()=>{
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    },500)
-  }
-
-  viewReference(ref: VipReference) {
-    // Placeholder for view logic, e.g. routing or dialog
-    alert(`Viewing reference: ${ref.referenceNo}`);
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.queueReferencesData.paginator = this.paginator;
+      this.queueReferencesData.sort = this.sort;
+      this.ngxService.stop();
+    },500);
   }
 
   addVipReference(){
     this.router.navigate(['/dashboard/add-reference'])
+  }
+
+  addSelectedReference(ref: VipReference){
+
+  }
+
+  viewReference(ref: VipReference) {
+    const viewReferenceDialog=this.dialog.open(ViewReferenceComponent,{
+          data:ref
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.queueReferencesData.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -8,9 +8,9 @@
 
       <mat-card-content>
         <mat-list class="mat-list">
-          <mat-list-item *ngFor="let queue of queues" appearance="outlined" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }" class="mat-list-item" (click)="selectedQueue = queue.path">
-            <mat-icon matListIcon> {{ queue.icon }}</mat-icon>&nbsp;
+          <mat-list-item *ngFor="let queue of queuesList" appearance="outlined" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" class="mat-list-item" (click)="navigateToQueue(queue.name)">
+            <mat-icon matListIcon> {{ queue.icon }} </mat-icon>&nbsp;
             {{ queue.name }}
             <mat-divider></mat-divider>
           </mat-list-item>
@@ -18,7 +18,6 @@
       </mat-card-content>
 
     </mat-card>
-
   </div>
 
   <!-- Right Side: Table -->
@@ -30,11 +29,11 @@
       </mat-card-header>
 
       <ng-container [ngSwitch]="selectedQueue">
-        <span *ngSwitchCase="''" class="no-selected-queqe"> No Queue Selected</span>
-        <app-vip-initiator *ngSwitchCase="'vip-initiator'"></app-vip-initiator>
-        <app-vip-assigner *ngSwitchCase="'vip-assigner'"></app-vip-assigner>
-        <app-vip-assignee *ngSwitchCase="'vip-assignee'"></app-vip-assignee>
-        <app-vip-final-reply *ngSwitchCase="'vip-final-reply'"></app-vip-final-reply>
+        <span *ngSwitchCase="''" class="no-selected-queqe" > No Queue Selected</span>
+        <app-vip-initiator *ngSwitchCase="'VIP_Initiator'" [selectedQueueData]="selectedQueue"></app-vip-initiator>
+        <app-vip-assigner *ngSwitchCase="'VIP_Assigner'"></app-vip-assigner>
+        <app-vip-assignee *ngSwitchCase="'VIP_Assignee'"></app-vip-assignee>
+        <app-vip-final-reply *ngSwitchCase="'VIP_Final_Reply'"></app-vip-final-reply>
       </ng-container>
     </mat-card>
   </div>
