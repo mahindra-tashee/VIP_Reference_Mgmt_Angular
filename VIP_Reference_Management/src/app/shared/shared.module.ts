@@ -19,6 +19,7 @@ import { InitiatorFormComponent } from './pages/initiator-form/initiator-form.co
 import { UploadInitiatorDocsComponent } from './pages/upload-initiator-docs/upload-initiator-docs.component';
 import { ViewReferenceComponent } from './pages/view-reference/view-reference.component';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { NgxUiLoaderModule } from "ngx-ui-loader";
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    NgxExtendedPdfViewerModule
   ]
 })
 export class SharedModule { }

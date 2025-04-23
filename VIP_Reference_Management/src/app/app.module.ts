@@ -51,7 +51,7 @@ const ngxUiLoaderConfig:NgxUiLoaderConfig =
     MaterialModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [
     provideClientHydration(withEventReplay())

@@ -11,6 +11,7 @@ import { UploadInitiatorDocsComponent } from '../upload-initiator-docs/upload-in
   styleUrl: './initiator-form.component.css'
 })
 export class InitiatorFormComponent {
+  pdfSrc: string | ArrayBuffer | undefined;
   private dialog = inject(MatDialog);
   addVipReferenceDetails!:FormGroup;
 
@@ -46,8 +47,17 @@ export class InitiatorFormComponent {
       data: this.addVipReferenceDetails.get('upload') as FormGroup
     });
   
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('Modal closed. Updated form:', this.addVipReferenceDetails.value);
+    dialogRef.afterClosed().subscribe((file: File | undefined) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.result !== null) {
+            this.pdfSrc = reader.result;
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      }
     });
   }
+
 }

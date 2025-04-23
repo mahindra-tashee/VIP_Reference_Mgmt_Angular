@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-upload-initiator-docs',
@@ -10,14 +10,30 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class UploadInitiatorDocsComponent {
   uploadReferenceDocs!:FormGroup;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: FormGroup){
+  selectedFile!: File;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: FormGroup,private dialogRef: MatDialogRef<UploadInitiatorDocsComponent>){
     this.uploadReferenceDocs = data;
   }
 
 
-  onFileSelect(event: any) {
-    const file = event.target.files[0];
-    this.uploadReferenceDocs.get('file')?.setValue(file);
+  onFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.type === 'application/pdf') {
+        this.selectedFile = file;
+      } else {
+        alert('Please select a valid PDF file.');
+      }
+    }
+  }
+
+  confirmUpload(): void {
+    if (this.selectedFile) {
+      this.dialogRef.close(this.selectedFile); // 🎯 This sends file back to parent
+    }
   }
 
 }
