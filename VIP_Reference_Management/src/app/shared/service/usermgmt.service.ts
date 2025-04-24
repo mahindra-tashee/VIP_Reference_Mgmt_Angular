@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user.model';
+import { ReferenceAssignment } from '../interface/reference-assignement.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +30,13 @@ export class UsermgmtService {
   }
   getQueueReferencesList(queueData:any):Observable<any>{
     return this.http.post<any>("http://localhost:4600/usermgmt/user/queue/references",queueData)
+  }
+
+  addVipReferenceDetails(referenceDetails:ReferenceAssignment):Observable<string>{
+    return this.http.post("http://localhost:4600/usermgmt/assign-reference",referenceDetails,
+      {
+        responseType: 'text' 
+      }
+    )
   }
 }

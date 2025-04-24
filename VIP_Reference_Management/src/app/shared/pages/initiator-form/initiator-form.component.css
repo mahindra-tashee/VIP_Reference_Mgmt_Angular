@@ -104,3 +104,11 @@
   font-size: 14px;
   font-weight: 550;
 }
+.input-container input{
+  display: block;
+}
+.input-container .mat-error{
+  color: red;
+  margin-left: 5px;
+  margin-top: 8px;
+}

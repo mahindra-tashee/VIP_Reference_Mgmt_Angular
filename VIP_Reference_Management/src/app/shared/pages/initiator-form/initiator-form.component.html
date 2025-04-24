@@ -10,12 +10,12 @@
 
         <form [formGroup]="addVipReferenceDetails">
 
-          <div class="form-field">
+          <!-- <div class="form-field">
             <div class="label-field">
               <label>Refernce No.</label>
             </div>
             <input matInput formControlName="referenceNo" class="mat-input" placeholder="Reference No.">
-          </div>
+          </div> -->
 
           <div class="form-field">
             <div class="label-field">
@@ -83,24 +83,40 @@
 
             <select matNativeControl formControlName="state">
               <option value="" disabled selected>Select State</option>
-              <option value="so">Maharashtra</option>
-              <option value="us">Uttar Pradesh</option>
-              <option value="dd">Bihar</option>
+              <option value="MH">Maharashtra</option>
+              <option value="UP">Uttar Pradesh</option>
+              <option value="BR">Bihar</option>
+              <option value="GJ">Gujarat</option>
+              <option value="RJ">Rajasthan</option>
+              <option value="TN">Tamil Nadu</option>
+              <option value="KA">Karnataka</option>
+              <option value="MP">Madhya Pradesh</option>
+              <option value="WB">West Bengal</option>
+              <option value="KL">Kerala</option>
+
             </select>
           </div>
           <div class="form-field">
             <div class="label-field">
               <label>Constituency</label>
             </div>
-
-            <input matInput formControlName="constituency" class="mat-input" placeholder="Constituency">
+            <select matNativeControl formControlName="constituency">
+              <option value="" disabled selected>Select Constituency</option>
+              <option value="Mumbai South" data-state="MH">Mumbai South</option>
+              <option value="Pune" data-state="MH">Pune</option>
+              <option value="Nagpur" data-state="MH">Nagpur</option>
+            </select>
           </div>
           <div class="form-field">
             <div class="label-field">
               <label>Prirority</label>
             </div>
-
-            <input matInput formControlName="prirority" class="mat-input" placeholder="Prirority">
+            <select matNativeControl formControlName="prirority">
+              <option value="" disabled selected>Select Prirority</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -110,9 +126,9 @@
 
             <select matNativeControl formControlName="catgOfSubject">
               <option value="" disabled selected>Select Category Of Subject</option>
-              <option value="so">BharatMala</option>
-              <option value="us">Roadway</option>
-              <option value="dd">Highway</option>
+              <option value="road_widening">Request for Road Widening under BharatMala</option>
+              <option value="new_flyover">Proposal for New Flyover Construction</option>
+              <option value="pothole_repair">Urgent Pothole Repairs on Main Road</option>
             </select>
           </div>
 
@@ -120,8 +136,13 @@
             <div class="label-field">
               <label>Sub-Category Of Subject</label>
             </div>
-
-            <input matInput formControlName="subCatgOfSubject" class="mat-input">
+            <select matNativeControl formControlName="subCatgOfSubject">
+              <option value="" disabled selected>Select Sub-Category Of Subject</option>
+              <option value="urban_road_repair">Urban Road Repair</option>
+              <option value="village_road_upgrade">Village Road Upgradation</option>
+              <option value="public_transport_route">Public Transport Route Enhancement</option>
+              <option value="pedestrian_pathway">Pedestrian Pathway Construction</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -135,7 +156,7 @@
           <div class="form-field">
             <div class="btn-group">
               <button mat-raised-button color="primary">Save</button>
-              <button mat-raised-button color="primary">Submit</button>
+              <button mat-raised-button color="primary" (click)="addVipReferencDetails()" [disabled]="!addVipReferenceDetails.valid">Submit</button>
             </div>
           </div>
 
@@ -154,11 +175,13 @@
       </mat-card-header>
 
       <span class="no-selected-queqe"> No Document Uploaded</span>
-      <button type="submit" class="file-btn" (click)="openDialog()"> <mat-icon class="file-icon">upload</mat-icon></button>
+      <button type="submit" class="file-btn" (click)="openDialog()"> <mat-icon
+          class="file-icon">upload</mat-icon></button>
 
-      <ngx-extended-pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" backgroundColor="#ffffff" useBrowserLocale="true" [height]="'93vh'"
-      [handTool]="true" [showHandToolButton]="true" [pageViewMode]="'single'">
-    </ngx-extended-pdf-viewer>
+      <ngx-extended-pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" backgroundColor="#ffffff" useBrowserLocale="true"
+        [height]="'93vh'" [handTool]="true" [showHandToolButton]="true" [pageViewMode]="'single'"
+        [scrollMode]="ScrollModeType.vertical">
+      </ngx-extended-pdf-viewer>
     </mat-card>
   </div>
 </div>
