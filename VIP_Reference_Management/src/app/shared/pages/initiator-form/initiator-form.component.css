@@ -76,7 +76,8 @@
 
 ::ng-deep .mat-datepicker-toggle {
   position: relative !important;
-  left: -10% !important;
+  left: -11% !important;
+  top: 11% !important;
 }
 
 .card-content {
@@ -104,8 +105,9 @@
   font-size: 14px;
   font-weight: 550;
 }
-.input-container input{
-  display: block;
+
+.input-container{
+  display: grid !important;
 }
 .input-container .mat-error{
   color: red;

@@ -22,31 +22,53 @@
               <label>Date Of Letter</label>
             </div>
 
-            <input matInput [matDatepicker]="picker1" formControlName="dateOfLetter" class="mat-input"
-              placeholder="Date Of Letter">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
+            <div class="input-container">
+              <div>
+                <input matInput [matDatepicker]="picker1" formControlName="dateOfLetter" class="mat-input"
+                  placeholder="Date Of Letter">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </div>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['dateOfLetter'].hasError('required') && addVipReferenceDetails.controls['dateOfLetter'].touched">
+                Please select date of letter
+              </mat-error>
+            </div>
           </div>
-
           <div class="form-field">
             <div class="label-field">
               <label>Date Of Receiving</label>
             </div>
-
-            <input matInput [matDatepicker]="picker2" formControlName="dateOfReceiving" class="mat-input"
-              placeholder="Date Of Receiving">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
+            <div class="input-container">
+              <div>
+                <input matInput [matDatepicker]="picker2" formControlName="dateOfReceiving" class="mat-input"
+                  placeholder="Date Of Receiving">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </div>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['dateOfReceiving'].hasError('required') && addVipReferenceDetails.controls['dateOfReceiving'].touched">
+                Please select date of receiving
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>Date Of Entry</label>
             </div>
-            <input matInput [matDatepicker]="picker3" formControlName="dateOfEntry" class="mat-input"
-              placeholder="Date Of Entry">
-            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-            <mat-datepicker #picker3></mat-datepicker>
+            <div class="input-container">
+              <div>
+                <input matInput [matDatepicker]="picker3" formControlName="dateOfEntry" class="mat-input"
+                  placeholder="Date Of Entry">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </div>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['dateOfEntry'].hasError('required') && addVipReferenceDetails.controls['dateOfEntry'].touched">
+                Please select date of entry
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
@@ -54,109 +76,165 @@
               <label>Name Of Diginitary</label>
             </div>
 
-            <input matInput formControlName="nameOfDiginitary" class="mat-input" placeholder="Name Of Diginitary">
+            <div class="input-container">
+              <input matInput formControlName="nameOfDiginitary" class="mat-input" placeholder="Name Of Diginitary">
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['nameOfDiginitary'].hasError('required') && addVipReferenceDetails.controls['nameOfDiginitary'].touched">
+                Please enter name of diginitary
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>E-Mail Id</label>
             </div>
-            <input matInput formControlName="emailId" class="mat-input" placeholder="E-Mail ID">
+
+            <div class="input-container">
+              <input matInput formControlName="emailId" class="mat-input" placeholder="E-Mail ID">
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['emailId'].hasError('required') && addVipReferenceDetails.controls['emailId'].touched">
+                Please enter email id
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>Designation</label>
             </div>
-
-            <select matNativeControl formControlName="designation">
-              <option value="" disabled selected>Select Designation</option>
-              <option value="so">Section Officer</option>
-              <option value="us">Under Secretary</option>
-              <option value="dd">Deputy Director</option>
-            </select>
+            <div class="input-container">
+              <select matNativeControl formControlName="designation">
+                <option value="" disabled selected>Select Designation</option>
+                <option value="so">Section Officer</option>
+                <option value="us">Under Secretary</option>
+                <option value="dd">Deputy Director</option>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['designation'].hasError('required') && addVipReferenceDetails.controls['designation'].touched">
+                Please select designation
+              </mat-error>
+            </div>
           </div>
           <div class="form-field">
             <div class="label-field">
               <label>State</label>
             </div>
+            <div class="input-container">
+              <select matNativeControl formControlName="state">
+                <option value="" disabled selected>Select State</option>
+                <option value="MH">Maharashtra</option>
+                <option value="UP">Uttar Pradesh</option>
+                <option value="BR">Bihar</option>
+                <option value="GJ">Gujarat</option>
+                <option value="RJ">Rajasthan</option>
+                <option value="TN">Tamil Nadu</option>
+                <option value="KA">Karnataka</option>
+                <option value="MP">Madhya Pradesh</option>
+                <option value="WB">West Bengal</option>
+                <option value="KL">Kerala</option>
 
-            <select matNativeControl formControlName="state">
-              <option value="" disabled selected>Select State</option>
-              <option value="MH">Maharashtra</option>
-              <option value="UP">Uttar Pradesh</option>
-              <option value="BR">Bihar</option>
-              <option value="GJ">Gujarat</option>
-              <option value="RJ">Rajasthan</option>
-              <option value="TN">Tamil Nadu</option>
-              <option value="KA">Karnataka</option>
-              <option value="MP">Madhya Pradesh</option>
-              <option value="WB">West Bengal</option>
-              <option value="KL">Kerala</option>
-
-            </select>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['state'].hasError('required') && addVipReferenceDetails.controls['state'].touched">
+                Please select state
+              </mat-error>
+            </div>
           </div>
           <div class="form-field">
             <div class="label-field">
               <label>Constituency</label>
             </div>
-            <select matNativeControl formControlName="constituency">
-              <option value="" disabled selected>Select Constituency</option>
-              <option value="Mumbai South" data-state="MH">Mumbai South</option>
-              <option value="Pune" data-state="MH">Pune</option>
-              <option value="Nagpur" data-state="MH">Nagpur</option>
-            </select>
+
+            <div class="input-container">
+              <select matNativeControl formControlName="constituency">
+                <option value="" disabled selected>Select Constituency</option>
+                <option value="Mumbai South" data-state="MH">Mumbai South</option>
+                <option value="Pune" data-state="MH">Pune</option>
+                <option value="Nagpur" data-state="MH">Nagpur</option>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['constituency'].hasError('required') && addVipReferenceDetails.controls['constituency'].touched">
+                Please select constituency
+              </mat-error>
+            </div>
           </div>
           <div class="form-field">
             <div class="label-field">
               <label>Prirority</label>
             </div>
-            <select matNativeControl formControlName="prirority">
-              <option value="" disabled selected>Select Prirority</option>
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
+
+            <div class="input-container">
+              <select matNativeControl formControlName="prirority">
+                <option value="" disabled selected>Select Prirority</option>
+                <option value="HIGH">High</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="LOW">Low</option>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['prirority'].hasError('required') && addVipReferenceDetails.controls['prirority'].touched">
+                Please select prirority
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>Category Of Subject</label>
             </div>
-
-            <select matNativeControl formControlName="catgOfSubject">
-              <option value="" disabled selected>Select Category Of Subject</option>
-              <option value="road_widening">Request for Road Widening under BharatMala</option>
-              <option value="new_flyover">Proposal for New Flyover Construction</option>
-              <option value="pothole_repair">Urgent Pothole Repairs on Main Road</option>
-            </select>
+            <div class="input-container">
+              <select matNativeControl formControlName="catgOfSubject">
+                <option value="" disabled selected>Select Category Of Subject</option>
+                <option value="road_widening">Request for Road Widening under BharatMala</option>
+                <option value="new_flyover">Proposal for New Flyover Construction</option>
+                <option value="pothole_repair">Urgent Pothole Repairs on Main Road</option>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['catgOfSubject'].hasError('required') && addVipReferenceDetails.controls['catgOfSubject'].touched">
+                Please select category of subject
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>Sub-Category Of Subject</label>
             </div>
-            <select matNativeControl formControlName="subCatgOfSubject">
-              <option value="" disabled selected>Select Sub-Category Of Subject</option>
-              <option value="urban_road_repair">Urban Road Repair</option>
-              <option value="village_road_upgrade">Village Road Upgradation</option>
-              <option value="public_transport_route">Public Transport Route Enhancement</option>
-              <option value="pedestrian_pathway">Pedestrian Pathway Construction</option>
-            </select>
+
+            <div class="input-container">
+              <select matNativeControl formControlName="subCatgOfSubject">
+                <option value="" disabled selected>Select Sub-Category Of Subject</option>
+                <option value="urban_road_repair">Urban Road Repair</option>
+                <option value="village_road_upgrade">Village Road Upgradation</option>
+                <option value="public_transport_route">Public Transport Route Enhancement</option>
+                <option value="pedestrian_pathway">Pedestrian Pathway Construction</option>
+              </select>
+              <mat-error class="mat-error"
+                *ngIf="addVipReferenceDetails.controls['subCatgOfSubject'].hasError('required') && addVipReferenceDetails.controls['subCatgOfSubject'].touched">
+                Please select sub-category of subject
+              </mat-error>
+            </div>
           </div>
 
           <div class="form-field">
             <div class="label-field">
               <label>Subject/Issue</label>
             </div>
-            <textarea matInput formControlName="subjectOrIssue" rows="4"
-              placeholder="Please Specify Subject or Issue"></textarea>
+            
+
+              <div class="input-container">
+                <textarea matInput formControlName="subjectOrIssue" rows="4" placeholder="Please Specify Subject or Issue"></textarea>
+                <mat-error class="mat-error"
+                  *ngIf="addVipReferenceDetails.controls['subjectOrIssue'].hasError('required') && addVipReferenceDetails.controls['subjectOrIssue'].touched">
+                  Please enter subject/issues
+                </mat-error>
+              </div>
           </div>
 
           <div class="form-field">
             <div class="btn-group">
               <button mat-raised-button color="primary">Save</button>
-              <button mat-raised-button color="primary" (click)="addVipReferencDetails()" [disabled]="!addVipReferenceDetails.valid">Submit</button>
+              <button mat-raised-button color="primary" (click)="addVipReferencDetails()">Submit</button>
             </div>
           </div>
 
