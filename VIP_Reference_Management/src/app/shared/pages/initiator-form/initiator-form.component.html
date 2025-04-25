@@ -252,10 +252,11 @@
         <mat-card-title>UPLOAD DOCUMENTS</mat-card-title>
       </mat-card-header>
 
-      <span class="no-selected-queqe"> No Document Uploaded</span>
+      <span class="no-selected-queqe" *ngIf="!pdfSrc"> No Document Uploaded</span>
       <button type="submit" class="file-btn" (click)="openDialog()"> <mat-icon
           class="file-icon">upload</mat-icon></button>
 
+      
       <ngx-extended-pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" backgroundColor="#ffffff" useBrowserLocale="true"
         [height]="'93vh'" [handTool]="true" [showHandToolButton]="true" [pageViewMode]="'single'"
         [scrollMode]="ScrollModeType.vertical">
