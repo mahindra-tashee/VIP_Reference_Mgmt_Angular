@@ -7,6 +7,7 @@ import { UsermgmtService } from '../../service/usermgmt.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ReferenceAssignment } from '../../interface/reference-assignement.model';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../interface/user.model';
 
 @Component({
   selector: 'app-initiator-form',
@@ -15,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './initiator-form.component.css'
 })
 export class InitiatorFormComponent {
+  userDetails!:User;
   public ScrollModeType = ScrollModeType;
   public scrollMode: ScrollModeType = ScrollModeType.vertical;
   pdfSrc: string | ArrayBuffer | undefined;
@@ -25,7 +27,15 @@ export class InitiatorFormComponent {
   addVipReferenceDetails!:FormGroup;
 
   ngOnInit(){
+    this.getUserDetails();
     this.initiateReferenceForm();
+  }
+
+  getUserDetails(){
+    const userData=localStorage.getItem("user");
+    if(userData){
+      this.userDetails=JSON.parse(userData);
+    }
   }
 
   initiateReferenceForm(){
@@ -76,9 +86,9 @@ export class InitiatorFormComponent {
       return;
     }
     const vipReferenceDetails:ReferenceAssignment={
-      "fromUserId": 1,
+      "fromUserId": this.userDetails.userId,
       "toUserId": 2,
-      "fromRoleId": 1,
+      "fromRoleId": this.userDetails.roles[0].roleId,
       "toRoleId": 2,
       "dateOfLetter": this.formatDateToIso(this.addVipReferenceDetails.get("dateOfLetter")?.value), // ISO date string format e.g., "2025-04-22T00:00:00"
       "dateOfReceiving": this.formatDateToIso(this.addVipReferenceDetails.get("dateOfReceiving")?.value),
@@ -102,7 +112,6 @@ export class InitiatorFormComponent {
         this.ngxService.stop();
       },
       error:(err)=>{
-        console.log(err)
         this.toastr.error("No references found for this user");
         this.ngxService.stop();
       }

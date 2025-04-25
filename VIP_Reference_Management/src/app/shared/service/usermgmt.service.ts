@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user.model';
 import { ReferenceAssignment } from '../interface/reference-assignement.model';
+import { API_ENDPOINTS } from '../utilities/api_endpoints';
 
 
 @Injectable({
@@ -14,26 +15,26 @@ export class UsermgmtService {
 
 
   loginVipUser(userLoginData: any): Observable<User>{
-    return this.http.post<User>("http://localhost:4600/usermgmt/login-user",userLoginData)
+    return this.http.post<User>(`${API_ENDPOINTS.userMgmt}/login-user`,userLoginData)
   }
 
   getDashboardStats(userId:number):Observable<any>{
-    return this.http.get<any>(`http://localhost:4600/usermgmt/get-dashboard-stats/${userId}`)
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/dashboard-stats/${userId}`)
   }
 
   getVipReferenceList(userId:number):Observable<any>{
-    return this.http.get<any>(`http://localhost:4600/usermgmt/get-vip-reference-list/${userId}`)
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/reference-list/${userId}`)
   }
 
   getUserQueueList(userId:number):Observable<any>{
-    return this.http.get<any>(`http://localhost:4600/usermgmt/user/${userId}/queues`)
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/user/${userId}/queues`)
   }
   getQueueReferencesList(queueData:any):Observable<any>{
-    return this.http.post<any>("http://localhost:4600/usermgmt/user/queue/references",queueData)
+    return this.http.post<any>(`${API_ENDPOINTS.reference}/user/queue/references`,queueData)
   }
 
   addVipReferenceDetails(referenceDetails:ReferenceAssignment):Observable<string>{
-    return this.http.post("http://localhost:4600/usermgmt/assign-reference",referenceDetails,
+    return this.http.post(`${API_ENDPOINTS.reference}/assign-reference`,referenceDetails,
       {
         responseType: 'text' 
       }
