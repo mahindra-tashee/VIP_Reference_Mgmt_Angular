@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: '', component:DashboardComponent },
       { path: 'desktop', component: DesktopComponent },
       { path: 'add-reference', component: InitiatorFormComponent },
+      {path: 'add-reference/:referenceNo',component: InitiatorFormComponent},
     ]
   }
 ];

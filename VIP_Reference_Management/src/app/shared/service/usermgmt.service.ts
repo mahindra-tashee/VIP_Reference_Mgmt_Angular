@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../interface/user.model';
 import { ReferenceAssignment } from '../interface/reference-assignement.model';
 import { API_ENDPOINTS } from '../utilities/api_endpoints';
+import { VipReferenceDetailsResponse } from '../interface/reference-details-response.model';
 
 
 @Injectable({
@@ -33,11 +34,18 @@ export class UsermgmtService {
     return this.http.post<any>(`${API_ENDPOINTS.reference}/user/queue/references`,queueData)
   }
 
-  addVipReferenceDetails(referenceDetails:ReferenceAssignment):Observable<string>{
-    return this.http.post(`${API_ENDPOINTS.reference}/assign-reference`,referenceDetails,
+  addVipReferenceDetails(formData:FormData):Observable<string>{
+    return this.http.post(`${API_ENDPOINTS.reference}/assign-reference`,formData,
       {
-        responseType: 'text' 
+        responseType: 'text' ,
+        headers:{
+
+        }
       }
     )
+  }
+
+  getReferenceDetails(referenceNumber:string):Observable<VipReferenceDetailsResponse>{
+    return this.http.get<VipReferenceDetailsResponse>(`${API_ENDPOINTS.reference}/reference-details/${referenceNumber}`)
   }
 }

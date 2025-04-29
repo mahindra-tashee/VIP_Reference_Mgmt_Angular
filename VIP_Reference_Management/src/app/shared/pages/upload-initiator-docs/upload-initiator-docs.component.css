@@ -31,6 +31,10 @@
     }
 }
 
+.label-field {
+    width: 280px;
+}
+
 .reference-form-container {
     display: flex;
     justify-content: center;
@@ -57,3 +61,12 @@
     padding: 20px;
     width: 150px;
 }
+
+.input-container{
+    display: grid !important;
+  }
+  .input-container .mat-error{
+    color: red;
+    margin-left: 5px;
+    margin-top: 8px;
+  }

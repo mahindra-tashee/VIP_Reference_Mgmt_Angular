@@ -147,12 +147,7 @@
             </div>
 
             <div class="input-container">
-              <select matNativeControl formControlName="constituency">
-                <option value="" disabled selected>Select Constituency</option>
-                <option value="Mumbai South" data-state="MH">Mumbai South</option>
-                <option value="Pune" data-state="MH">Pune</option>
-                <option value="Nagpur" data-state="MH">Nagpur</option>
-              </select>
+              <input matInput formControlName="constituency" class="mat-input" placeholder="Enter Constituency">
               <mat-error class="mat-error"
                 *ngIf="addVipReferenceDetails.controls['constituency'].hasError('required') && addVipReferenceDetails.controls['constituency'].touched">
                 Please select constituency

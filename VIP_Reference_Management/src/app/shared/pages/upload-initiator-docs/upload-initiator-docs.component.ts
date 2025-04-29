@@ -9,10 +9,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './upload-initiator-docs.component.css'
 })
 export class UploadInitiatorDocsComponent {
-  uploadReferenceDocs!:FormGroup;
+  uploadReferenceDocs!: FormGroup;
   selectedFile!: File;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: FormGroup,private dialogRef: MatDialogRef<UploadInitiatorDocsComponent>){
+  constructor(@Inject(MAT_DIALOG_DATA) public data: FormGroup, private dialogRef: MatDialogRef<UploadInitiatorDocsComponent>) {
     this.uploadReferenceDocs = data;
   }
 
@@ -22,17 +22,32 @@ export class UploadInitiatorDocsComponent {
 
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      if (file.type === 'application/pdf') {
-        this.selectedFile = file;
-      } else {
-        alert('Please select a valid PDF file.');
+
+      // Validate type
+      if (file.type !== 'application/pdf') {
+        this.uploadReferenceDocs.get('file')?.setErrors({ invalidType: true });
+        return;
       }
+
+      // Validate size (max 50MB = 50 * 1024 * 1024)
+      if (file.size > 2 * 1024 * 1024) {
+        this.uploadReferenceDocs.get('file')?.setErrors({ maxSizeExceeded: true });
+        return;
+      }
+
+      this.uploadReferenceDocs.get('file')?.setErrors(null);
+      this.selectedFile = file;
     }
   }
 
   confirmUpload(): void {
     if (this.selectedFile) {
-      this.dialogRef.close(this.selectedFile); // 🎯 This sends file back to parent
+      this.dialogRef.close({
+        selectFile: this.selectedFile,
+        documentType: this.uploadReferenceDocs.get('documentType')?.value,
+        comments: this.uploadReferenceDocs.get('comments')?.value
+      });
+      this.uploadReferenceDocs.reset();
     }
   }
 

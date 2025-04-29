@@ -60,7 +60,6 @@ export class VipInitiatorComponent {
     this.userMgmtService.getQueueReferencesList(queueData).subscribe({
       next:(res)=>{
          this.queueReferencesData.data=res;
-         console.log(res)
          this.initiatePaginator();
       },
       error:(err)=>{
@@ -87,9 +86,7 @@ export class VipInitiatorComponent {
   }
 
   viewReference(ref: VipReference) {
-    const viewReferenceDialog=this.dialog.open(ViewReferenceComponent,{
-          data:ref
-    });
+    this.router.navigate([`/dashboard/add-reference/${ref.referenceNo}`])
   }
 
   applyFilter(event: Event) {
