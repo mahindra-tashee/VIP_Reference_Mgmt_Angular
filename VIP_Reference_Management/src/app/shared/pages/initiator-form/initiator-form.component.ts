@@ -97,7 +97,8 @@ export class InitiatorFormComponent {
   addVipReferencDetails(){
     this.ngxService.start();
     if (this.addVipReferenceDetails.invalid) {
-      this.addVipReferenceDetails.markAllAsTouched(); // force show errors
+      this.addVipReferenceDetails.markAllAsTouched(); 
+      this.ngxService.stop();// force show errors
       return;
     }
     const formData = new FormData();
