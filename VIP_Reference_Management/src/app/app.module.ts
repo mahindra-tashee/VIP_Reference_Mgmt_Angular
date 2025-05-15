@@ -8,6 +8,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxUiLoaderModule,NgxUiLoaderConfig  } from "ngx-ui-loader";
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 const ngxUiLoaderConfig:NgxUiLoaderConfig =
   {
     "bgsColor": "#00acc1",
@@ -54,7 +55,8 @@ const ngxUiLoaderConfig:NgxUiLoaderConfig =
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,32 @@
+
+::ng-deep .mat-mdc-header-row {
+    /* background: #3f51b5 !important; */
+    background: #3e9393 !important;
+    color: #ffff !important;
+}
+
+::ng-deep .mat-sort-header-arrow svg {
+    fill: #ffff !important;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+    min-width: 140px !important;
+}
+.px-4 {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.pb-4{
+  padding-bottom: 20px;
+}
+.example-card {
+    width: 100% !important;
+    height: 100% !important;
+}
+.Login-btn {
+    height: 3em;
+    float: right;
+    width: 13em;
+    background-color: #3e9393;
+    color: #ffff;
+}

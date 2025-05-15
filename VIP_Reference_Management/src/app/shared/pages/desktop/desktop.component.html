@@ -31,7 +31,7 @@
       <ng-container [ngSwitch]="selectedQueue">
         <span *ngSwitchCase="''" class="no-selected-queqe" > No Queue Selected</span>
         <app-vip-initiator *ngSwitchCase="'VIP_Initiator'" [selectedQueueData]="selectedQueue"></app-vip-initiator>
-        <app-vip-assigner *ngSwitchCase="'VIP_Assigner'"></app-vip-assigner>
+        <app-vip-assigner *ngSwitchCase="'VIP_Assigner'" [selectedQueueData]="selectedQueue"></app-vip-assigner>
         <app-vip-assignee *ngSwitchCase="'VIP_Assignee'"></app-vip-assignee>
         <app-vip-final-reply *ngSwitchCase="'VIP_Final_Reply'"></app-vip-final-reply>
       </ng-container>

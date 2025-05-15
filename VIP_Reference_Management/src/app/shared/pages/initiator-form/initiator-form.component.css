@@ -80,6 +80,9 @@
   top: 11% !important;
 }
 
+::ng-deep .mat-mdc-tab-header{
+  width: 80% !important;
+}
 .card-content {
   display: flex;
   align-items: center;

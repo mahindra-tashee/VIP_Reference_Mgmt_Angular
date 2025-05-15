@@ -18,54 +18,76 @@ import { VipReferenceDetailsResponse } from '../../interface/reference-details-r
   styleUrl: './initiator-form.component.css'
 })
 export class InitiatorFormComponent {
-  userDetails!:User;
+  showReferencNo: boolean = false;
+  userDetails!: User;
   public ScrollModeType = ScrollModeType;
   public scrollMode: ScrollModeType = ScrollModeType.vertical;
   pdfSrc: string | ArrayBuffer | undefined;
   private dialog = inject(MatDialog);
-  private userMgmtService=inject(UsermgmtService);
-  private ngxService=inject(NgxUiLoaderService);
-  private toastr=inject(ToastrService);
-  private activateRoute=inject(ActivatedRoute);
-  addVipReferenceDetails!:FormGroup;
+  private userMgmtService = inject(UsermgmtService);
+  private ngxService = inject(NgxUiLoaderService);
+  private toastr = inject(ToastrService);
+  private activateRoute = inject(ActivatedRoute);
+  addVipReferenceDetails!: FormGroup;
   referenceNo!: string | null;
   refernceDetails: VipReferenceDetailsResponse = {} as VipReferenceDetailsResponse;
 
-  ngOnInit(){
+  ngOnInit() {
     this.getUserDetails();
     this.initiateReferenceForm();
+    this.disabledReferenceField()
     this.referenceNo = this.activateRoute.snapshot.paramMap.get('referenceNo');
-    if(this.referenceNo  !==null && this.referenceNo !== undefined){
+    if (this.referenceNo !== null && this.referenceNo !== undefined) {
       this.getReferenceDetails(this.referenceNo)
     }
   }
 
-  getUserDetails(){
-    const userData=localStorage.getItem("user");
-    if(userData){
-      this.userDetails=JSON.parse(userData);
+  disabledReferenceField() {
+    if (this.userDetails.roles[0].roleName == "VIP_Initiator") {
+      this.showReferencNo = false;
+      const todayDate = new Date();
+      this.addVipReferenceDetails.patchValue({
+        dateOfEntry: new Date()
+      });
+      this.addVipReferenceDetails.get('referenceNo')?.disable();
+      this.addVipReferenceDetails.get('dateOfEntry')?.disable();
+    }
+    else if (this.userDetails.roles[0].roleName == "VIP_Assigner") {
+      this.showReferencNo = true
+      this.addVipReferenceDetails.get('referenceNo')?.disable();
+      this.addVipReferenceDetails.get('dateOfLetter')?.disable();
+      this.addVipReferenceDetails.get('dateOfReceiving')?.disable();
+      this.addVipReferenceDetails.get('dateOfEntry')?.disable();
+      this.addVipReferenceDetails.get('state')?.disable();
     }
   }
 
-  initiateReferenceForm(){
-    this.addVipReferenceDetails=new FormGroup({
-      "referenceNo":new FormControl(""),
-      "dateOfLetter":new FormControl("",Validators.required),
-      "dateOfReceiving":new FormControl("",Validators.required),
-      "dateOfEntry":new FormControl("",Validators.required),
-      "nameOfDiginitary":new FormControl("",Validators.required),
-      "emailId":new FormControl("",Validators.required),
-      "designation":new FormControl("",Validators.required),
-      "state":new FormControl("",Validators.required),
-      "constituency":new FormControl("",Validators.required),
-      "prirority":new FormControl("",Validators.required),
-      "catgOfSubject":new FormControl("",Validators.required),
-      "subCatgOfSubject":new FormControl("",Validators.required),
-      "subjectOrIssue":new FormControl("",Validators.required),
+  getUserDetails() {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.userDetails = JSON.parse(userData);
+    }
+  }
+
+  initiateReferenceForm() {
+    this.addVipReferenceDetails = new FormGroup({
+      "referenceNo": new FormControl(""),
+      "dateOfLetter": new FormControl("", Validators.required),
+      "dateOfReceiving": new FormControl("", Validators.required),
+      "dateOfEntry": new FormControl("", Validators.required),
+      "nameOfDiginitary": new FormControl("", Validators.required),
+      "emailId": new FormControl("", Validators.required),
+      "designation": new FormControl("", Validators.required),
+      "state": new FormControl("", Validators.required),
+      "constituency": new FormControl("", Validators.required),
+      "prirority": new FormControl("", Validators.required),
+      "catgOfSubject": new FormControl("", Validators.required),
+      "subCatgOfSubject": new FormControl("", Validators.required),
+      "subjectOrIssue": new FormControl("", Validators.required),
       "upload": new FormGroup({
-        "file": new FormControl("",Validators.required),
+        "file": new FormControl("", Validators.required),
         "documentType": new FormControl(""),
-        "comments":new FormControl("")
+        "comments": new FormControl("")
       })
     })
   }
@@ -74,7 +96,7 @@ export class InitiatorFormComponent {
     const dialogRef = this.dialog.open(UploadInitiatorDocsComponent, {
       data: this.addVipReferenceDetails.get('upload') as FormGroup
     });
-  
+
     dialogRef.afterClosed().subscribe((formGroupDts) => {
       const uploadGroup = this.addVipReferenceDetails.get('upload') as FormGroup;
       uploadGroup.get('file')?.setValue(formGroupDts.selectFile);
@@ -94,11 +116,10 @@ export class InitiatorFormComponent {
     });
   }
 
-  addVipReferencDetails(){
+  addVipReferencDetails() {
     this.ngxService.start();
     if (this.addVipReferenceDetails.invalid) {
-      this.addVipReferenceDetails.markAllAsTouched(); 
-      this.ngxService.stop();// force show errors
+      this.addVipReferenceDetails.markAllAsTouched(); // force show errors
       return;
     }
     const formData = new FormData();
@@ -120,13 +141,13 @@ export class InitiatorFormComponent {
     formData.append("categoryOfSubject", this.addVipReferenceDetails.get("catgOfSubject")?.value);
     formData.append("subCategoryOfSubject", this.addVipReferenceDetails.get("subCatgOfSubject")?.value);
     formData.append("subject", this.addVipReferenceDetails.get("subjectOrIssue")?.value);
-  
+
     // Append uploaded file
     const uploadGroup = this.addVipReferenceDetails.get('upload') as FormGroup;
     const file = uploadGroup.get('file')?.value;
     const documentType = uploadGroup.get('documentType')?.value;
     const comments = uploadGroup.get('comments')?.value;
-  
+
     if (file) {
       formData.append("files", file); // Backend expects 'files' list
       formData.append("documentTypes", documentType);
@@ -134,19 +155,19 @@ export class InitiatorFormComponent {
     }
 
     this.userMgmtService.addVipReferenceDetails(formData).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.toastr.success("Reference added successfully");
         this.resetAddReferenceForm()
         this.ngxService.stop();
       },
-      error:(err)=>{
+      error: (err) => {
         this.toastr.error("please enter valid details");
         this.ngxService.stop();
       }
     })
   }
 
-  
+
 
   formatDateToIso(date: any): string {
     const d = new Date(date);
@@ -158,29 +179,29 @@ export class InitiatorFormComponent {
     return d.toISOString().split('T')[0] + 'T00:00:00';
   }
 
-  resetAddReferenceForm(){
+  resetAddReferenceForm() {
     this.addVipReferenceDetails.reset();
-    this.pdfSrc="";
+    this.pdfSrc = "";
   }
 
 
-  getReferenceDetails(referenceNo:string){
+  getReferenceDetails(referenceNo: string) {
     this.ngxService.start();
     this.userMgmtService.getReferenceDetails(referenceNo).subscribe({
-      next:(res:VipReferenceDetailsResponse)=>{
-        this.refernceDetails=res;
+      next: (res: VipReferenceDetailsResponse) => {
+        this.refernceDetails = res;
         console.log(res)
         this.setReferenceDetails();
         this.ngxService.stop();
       },
-      error:(err)=>{
+      error: (err) => {
         this.toastr.error("Error in getting reference details");
         this.ngxService.stop();
       }
     })
   }
 
-  setReferenceDetails(){
+  setReferenceDetails() {
     this.addVipReferenceDetails.patchValue({
       referenceNo: this.refernceDetails.referenceNo,
       dateOfLetter: this.refernceDetails.dateOfLetter,
@@ -212,5 +233,5 @@ export class InitiatorFormComponent {
       }
     }
   }
-  
+
 }
