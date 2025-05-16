@@ -81,8 +81,10 @@
 }
 
 ::ng-deep .mat-mdc-tab-header{
-  width: 80% !important;
+  width: 100% !important;
 }
+
+
 .card-content {
   display: flex;
   align-items: center;

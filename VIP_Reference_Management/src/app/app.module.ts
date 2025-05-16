@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxUiLoaderModule,NgxUiLoaderConfig  } from "ngx-ui-loader";
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+
 const ngxUiLoaderConfig:NgxUiLoaderConfig =
   {
     "bgsColor": "#00acc1",
@@ -52,7 +54,8 @@ const ngxUiLoaderConfig:NgxUiLoaderConfig =
     MaterialModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxExtendedPdfViewerModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),

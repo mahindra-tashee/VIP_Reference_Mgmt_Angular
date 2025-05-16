@@ -11,6 +11,9 @@ import { User } from '../../interface/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { VipReferenceDetailsResponse } from '../../interface/reference-details-response.model';
 
+import { EditorComponent } from '@tinymce/tinymce-angular';
+import { ReplyEditorComponent } from '../reply-editor/reply-editor.component';
+
 @Component({
   selector: 'app-initiator-form',
   standalone: false,
@@ -29,13 +32,17 @@ export class InitiatorFormComponent {
   private toastr = inject(ToastrService);
   private activateRoute = inject(ActivatedRoute);
   addVipReferenceDetails!: FormGroup;
+  forwardReferenceForm!: FormGroup;
   referenceNo!: string | null;
   refernceDetails: VipReferenceDetailsResponse = {} as VipReferenceDetailsResponse;
+  init: EditorComponent['init'] = {
+    plugins: 'lists link image table code help wordcount'
+  };
 
   ngOnInit() {
     this.getUserDetails();
     this.initiateReferenceForm();
-    this.disabledReferenceField()
+    this.disabledReferenceField();
     this.referenceNo = this.activateRoute.snapshot.paramMap.get('referenceNo');
     if (this.referenceNo !== null && this.referenceNo !== undefined) {
       this.getReferenceDetails(this.referenceNo)
@@ -53,7 +60,8 @@ export class InitiatorFormComponent {
       this.addVipReferenceDetails.get('dateOfEntry')?.disable();
     }
     else if (this.userDetails.roles[0].roleName == "VIP_Assigner") {
-      this.showReferencNo = true
+      this.initiateforwardReferenceForm();
+      this.showReferencNo = true;
       this.addVipReferenceDetails.get('referenceNo')?.disable();
       this.addVipReferenceDetails.get('dateOfLetter')?.disable();
       this.addVipReferenceDetails.get('dateOfReceiving')?.disable();
@@ -89,6 +97,21 @@ export class InitiatorFormComponent {
         "documentType": new FormControl(""),
         "comments": new FormControl("")
       })
+    })
+  }
+
+  initiateforwardReferenceForm() {
+    this.forwardReferenceForm = new FormGroup({
+      "routingType": new FormControl(""),
+      "actionType": new FormControl(""),
+      "action": new FormControl(""),
+      "replyType": new FormControl(""),
+      "organization": new FormControl(""),
+      "officeType": new FormControl(""),
+      "office": new FormControl(""),
+      "userDesignation": new FormControl(""),
+      "userName": new FormControl(""),
+      "forwardComment": new FormControl("")
     })
   }
 
@@ -234,4 +257,11 @@ export class InitiatorFormComponent {
     }
   }
 
+  uploadReply() {
+
+  }
+
+  openEditor() {
+    const dialogRef = this.dialog.open(ReplyEditorComponent);
+  }
 }

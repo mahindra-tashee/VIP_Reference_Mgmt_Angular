@@ -4,10 +4,7 @@
     <mat-tab label="ADD REFERENCE">
       <div class="dashboard-card">
         <mat-card class="example-card" appearance="outlined">
-
-
           <mat-card-content class="reference-form-container">
-
             <form [formGroup]="addVipReferenceDetails">
 
               <div class="form-field" *ngIf="showReferencNo">
@@ -238,10 +235,232 @@
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab label="Action"> Content 2 </mat-tab>
-    <mat-tab label="Create Draft Reply"> Content 3 </mat-tab>
-    <mat-tab label="Linked References"> Content 3 </mat-tab>
-     <mat-tab label="Knowledge Base"> Content 3 </mat-tab>
+    <mat-tab label="Action" *ngIf="showReferencNo">
+      <div class="dashboard-card">
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-content class="reference-form-container">
+            <form [formGroup]="forwardReferenceForm">
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Routing Type</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="routingType">
+                    <option value="" disabled selected>Select Routing</option>
+                    <option value="single">Single</option>
+                    <option value="multiple">Multiple</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['routingType'].hasError('required') && forwardReferenceForm.controls['routingType'].touched">
+                    Please select routing
+                  </mat-error>
+                </div>
+              </div>
+
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Action Type</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="actionType">
+                    <option value="" disabled selected>Select Action Type</option>
+                    <option value="final_reply">Final Draft Reply</option>
+                    <option value="forward_for_reply">Forward For Reply</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['actionType'].hasError('required') && forwardReferenceForm.controls['actionType'].touched">
+                    Please select action type
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Action</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="action">
+                    <option value="" disabled selected>Select Action</option>
+                    <option value="forward">Forward</option>
+                    <option value="discard">Discard</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['action'].hasError('required') && forwardReferenceForm.controls['action'].touched">
+                    Please select action
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Reply Type</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="replyType">
+                    <option value="" disabled selected>Select Reply Type</option>
+                    <option value="positive">Positive</option>
+                    <option value="negative">Negative</option>
+                    <option value="interim">Interim</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['replyType'].hasError('required') && forwardReferenceForm.controls['replyType'].touched">
+                    Please select reply type
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Organization</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="organization">
+                    <option value="" disabled selected>Select Organization</option>
+                    <option value="MoRTH">MoRTH</option>
+                    <option value="NHAI">NHAI</option>
+                    <option value="NHIDCL">NHIDCL</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['organization'].hasError('required') && forwardReferenceForm.controls['organization'].touched">
+                    Please select organization
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Office Type</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="officeType">
+                    <option value="" disabled selected>Select Office Type</option>
+                    <option value="MoRTH">MoRTH</option>
+                    <option value="NHAI">NHAI</option>
+                    <option value="NHIDCL">NHIDCL</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['officeType'].hasError('required') && forwardReferenceForm.controls['officeType'].touched">
+                    Please select office type
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Office</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="office">
+                    <option value="" disabled selected>Select Office</option>
+                    <option value="MoRTH">MoRTH</option>
+                    <option value="NHAI">NHAI</option>
+                    <option value="NHIDCL">NHIDCL</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['office'].hasError('required') && forwardReferenceForm.controls['office'].touched">
+                    Please select office
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Designation</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="userDesignation">
+                    <option value="" disabled selected>Select Designation</option>
+                    <option value="GM">General Manager</option>
+                    <option value="DGM">Deputy General Manager</option>
+                    <option value="MLA">MLA</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['userDesignation'].hasError('required') && forwardReferenceForm.controls['userDesignation'].touched">
+                    Please select designation
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>User</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl formControlName="userName">
+                    <option value="" disabled selected>Select User</option>
+                    <option value="GM">Initiator</option>
+                  </select>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['userName'].hasError('required') && forwardReferenceForm.controls['userName'].touched">
+                    Please select user
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="label-field">
+                  <label>Comment For Action</label>
+                </div>
+
+
+                <div class="input-container">
+                  <textarea matInput formControlName="forwardComment" rows="4"
+                    placeholder="Please Enter Comment"></textarea>
+                  <mat-error class="mat-error"
+                    *ngIf="forwardReferenceForm.controls['forwardComment'].hasError('required') && forwardReferenceForm.controls['forwardComment'].touched">
+                    Please enter comment
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="btn-group">
+                  <button mat-raised-button color="primary" (click)="addVipReferencDetails()">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Create Draft Reply" *ngIf="showReferencNo && forwardReferenceForm.get('actionType')?.value === 'final_reply'" style="min-height: 80vh !important;">
+
+      <div class="dashboard-card">
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-content class="reference-form-container">
+
+            <div>
+              <div class="form-field">
+                <div class="label-field" style="width: 350px;">
+                  <label>Is reply created through template?</label>
+                </div>
+                <div class="input-container">
+                  <select matNativeControl>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Y">Yes</option>
+                    <option value="N">No</option>
+                  </select>
+                  <!-- <mat-error class="mat-error">
+                    Please select routing
+                  </mat-error> -->
+                </div>
+              </div>
+
+              <div class="form-field">
+                <div class="btn-group">
+                  <button mat-raised-button color="primary" (click)="openEditor()">Open Editor</button>
+                  <button mat-raised-button color="primary" (click)="uploadReply()">Upload Reply</button>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Linked References" *ngIf="showReferencNo"> Content 3 </mat-tab>
+    <mat-tab label="Knowledge Base" *ngIf="showReferencNo"> Content 3 </mat-tab>
   </mat-tab-group>
 
 

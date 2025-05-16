@@ -21,6 +21,8 @@ import { ViewReferenceComponent } from './pages/view-reference/view-reference.co
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ReplyEditorComponent } from './pages/reply-editor/reply-editor.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     VipFinalReplyComponent,
     InitiatorFormComponent,
     UploadInitiatorDocsComponent,
-    ViewReferenceComponent
+    ViewReferenceComponent,
+    ReplyEditorComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     MaterialModule,
     HttpClientModule,
     NgxUiLoaderModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    EditorModule
   ]
 })
 export class SharedModule { }
