@@ -1,2 +1,8 @@
-      <editor apiKey="b5g34ckshepltf9x1akei96rr2zcm1wsd94gxppwmugvurkn" [init]="init" style="width: 1450px;" />
-      <button>Save</button>
+<editor apiKey="b5g34ckshepltf9x1akei96rr2zcm1wsd94gxppwmugvurkn" [init]="init"  [(ngModel)]="editorContent"/>
+
+<div class="form-field">
+      <div class="btn-group">
+            <button mat-raised-button color="primary" (click)="confirmUpload()">Save</button>
+            <button mat-raised-button color="primary">Cancel</button>
+      </div>
+</div>

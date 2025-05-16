@@ -131,7 +131,6 @@ export class InitiatorFormComponent {
         reader.onload = () => {
           if (reader.result !== null) {
             this.pdfSrc = reader.result;
-
           }
         };
         reader.readAsArrayBuffer(formGroupDts.selectFile);
@@ -213,7 +212,6 @@ export class InitiatorFormComponent {
     this.userMgmtService.getReferenceDetails(referenceNo).subscribe({
       next: (res: VipReferenceDetailsResponse) => {
         this.refernceDetails = res;
-        console.log(res)
         this.setReferenceDetails();
         this.ngxService.stop();
       },
@@ -263,5 +261,15 @@ export class InitiatorFormComponent {
 
   openEditor() {
     const dialogRef = this.dialog.open(ReplyEditorComponent);
+    
+    dialogRef.afterClosed().subscribe((formGroupDts) => {
+      const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.result !== null) {
+            this.pdfSrc = reader.result;
+          }
+        };
+        reader.readAsArrayBuffer(formGroupDts.selectFile);
+    });
   }
 }
