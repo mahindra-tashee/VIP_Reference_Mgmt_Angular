@@ -23,6 +23,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ReplyEditorComponent } from './pages/reply-editor/reply-editor.component';
+import { UploadReplyComponent } from './pages/upload-reply/upload-reply.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ReplyEditorComponent } from './pages/reply-editor/reply-editor.componen
     InitiatorFormComponent,
     UploadInitiatorDocsComponent,
     ViewReferenceComponent,
-    ReplyEditorComponent
+    ReplyEditorComponent,
+    UploadReplyComponent
   ],
   imports: [
     CommonModule,

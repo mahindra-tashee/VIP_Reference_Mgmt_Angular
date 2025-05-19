@@ -111,7 +111,7 @@ export class InitiatorFormComponent {
       "office": new FormControl(""),
       "userDesignation": new FormControl(""),
       "userName": new FormControl(""),
-      "forwardComment": new FormControl("")
+      "forwardComment": new FormControl(""),
     })
   }
 
@@ -256,20 +256,39 @@ export class InitiatorFormComponent {
   }
 
   uploadReply() {
+    const dialogRef = this.dialog.open(UploadInitiatorDocsComponent, {
+      data: this.addVipReferenceDetails.get('upload') as FormGroup
+    });
 
-  }
-
-  openEditor() {
-    const dialogRef = this.dialog.open(ReplyEditorComponent);
-    
     dialogRef.afterClosed().subscribe((formGroupDts) => {
-      const reader = new FileReader();
+      const uploadGroup = this.addVipReferenceDetails.get('upload') as FormGroup;
+      uploadGroup.get('file')?.setValue(formGroupDts.selectFile);
+      uploadGroup.get('comments')?.setValue(formGroupDts.comments);
+      uploadGroup.get('documentType')?.setValue(formGroupDts.documentType);
+
+      if (formGroupDts.selectFile) {
+        const reader = new FileReader();
         reader.onload = () => {
           if (reader.result !== null) {
             this.pdfSrc = reader.result;
           }
         };
         reader.readAsArrayBuffer(formGroupDts.selectFile);
+      }
+    });
+  }
+
+  openEditor() {
+    const dialogRef = this.dialog.open(ReplyEditorComponent);
+
+    dialogRef.afterClosed().subscribe((formGroupDts) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result !== null) {
+          this.pdfSrc = reader.result;
+        }
+      };
+      reader.readAsArrayBuffer(formGroupDts.selectFile);
     });
   }
 }
