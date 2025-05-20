@@ -264,7 +264,7 @@
                   <label>Action Type</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="actionType">
+                  <select matNativeControl formControlName="actionType" (change)="onActionTypeChange()">
                     <option value="" disabled selected>Select Action Type</option>
                     <option value="final_reply">Final Draft Reply</option>
                     <option value="forward_for_reply">Forward For Reply</option>
@@ -276,12 +276,12 @@
                 </div>
               </div>
 
-              <div class="form-field">
+              <div class="form-field" >
                 <div class="label-field">
                   <label>Action</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="action">
+                  <select matNativeControl formControlName="action" >
                     <option value="" disabled selected>Select Action</option>
                     <option value="forward">Forward</option>
                     <option value="discard">Discard</option>
@@ -298,7 +298,7 @@
                   <label>Reply Type</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="replyType">
+                  <select matNativeControl formControlName="replyType" >
                     <option value="" disabled selected>Select Reply Type</option>
                     <option value="positive">Positive</option>
                     <option value="negative">Negative</option>
@@ -316,11 +316,11 @@
                   <label>Organization</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="organization">
+                  <select matNativeControl formControlName="organization" (change)="selectedOrganization($event)" >
                     <option value="" disabled selected>Select Organization</option>
-                    <option value="MoRTH">MoRTH</option>
-                    <option value="NHAI">NHAI</option>
-                    <option value="NHIDCL">NHIDCL</option>
+                    <option *ngFor="let org of organizationsList" [value]="org.organizationCode">
+                      {{ org.organizationCode }}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['organization'].hasError('required') && forwardReferenceForm.controls['organization'].touched">
@@ -329,7 +329,7 @@
                 </div>
               </div>
 
-              <div class="form-field">
+              <!-- <div class="form-field">
                 <div class="label-field">
                   <label>Office Type</label>
                 </div>
@@ -345,18 +345,18 @@
                     Please select office type
                   </mat-error>
                 </div>
-              </div>
+              </div> -->
 
               <div class="form-field">
                 <div class="label-field">
                   <label>Office</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="office">
+                  <select matNativeControl formControlName="office" >
                     <option value="" disabled selected>Select Office</option>
-                    <option value="MoRTH">MoRTH</option>
-                    <option value="NHAI">NHAI</option>
-                    <option value="NHIDCL">NHIDCL</option>
+                    <option *ngFor="let office of officeTypeList" [value]="office.officeName">
+                      {{office.officeName}}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['office'].hasError('required') && forwardReferenceForm.controls['office'].touched">
@@ -370,11 +370,11 @@
                   <label>Designation</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="userDesignation">
+                  <select matNativeControl formControlName="userDesignation" (change)="getUserList()" >
                     <option value="" disabled selected>Select Designation</option>
-                    <option value="GM">General Manager</option>
-                    <option value="DGM">Deputy General Manager</option>
-                    <option value="MLA">MLA</option>
+                    <option *ngFor="let designation of designationList" [value]="designation.designationCode">
+                      {{ designation.designationCode }}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['userDesignation'].hasError('required') && forwardReferenceForm.controls['userDesignation'].touched">
@@ -388,9 +388,9 @@
                   <label>User</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="userName">
+                  <select matNativeControl formControlName="userName" >
                     <option value="" disabled selected>Select User</option>
-                    <option value="GM">Initiator</option>
+                    <option *ngFor="let user of userLists" [value]="user.name">{{user.name}}</option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['userName'].hasError('required') && forwardReferenceForm.controls['userName'].touched">
@@ -425,7 +425,9 @@
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab label="Create Draft Reply" *ngIf="showReferencNo && forwardReferenceForm.get('actionType')?.value === 'final_reply'" style="min-height: 80vh !important;">
+    <mat-tab label="Create Draft Reply"
+      *ngIf="showReferencNo && forwardReferenceForm.get('actionType')?.value === 'final_reply'"
+      style="min-height: 80vh !important;">
 
       <div class="dashboard-card">
         <mat-card class="example-card" appearance="outlined">

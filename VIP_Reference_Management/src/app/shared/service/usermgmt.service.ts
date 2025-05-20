@@ -5,6 +5,8 @@ import { User } from '../interface/user.model';
 import { ReferenceAssignment } from '../interface/reference-assignement.model';
 import { API_ENDPOINTS } from '../utilities/api_endpoints';
 import { VipReferenceDetailsResponse } from '../interface/reference-details-response.model';
+import { UserList } from '../interface/user-list.model';
+import { userInfo } from 'os';
 
 
 @Injectable({
@@ -47,5 +49,25 @@ export class UsermgmtService {
 
   getReferenceDetails(referenceNumber:string):Observable<VipReferenceDetailsResponse>{
     return this.http.get<VipReferenceDetailsResponse>(`${API_ENDPOINTS.reference}/reference-details/${referenceNumber}`)
+  }
+
+
+
+  // master data api
+
+  getOrganizationList():Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.referencemaster}/organization`)
+  }
+
+  getOfficeList(selectedOrganization:string):Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.referencemaster}/get-office-types/${selectedOrganization}`);
+  }
+
+  getDesignationList(selectedOrganization:string):Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.referencemaster}/get-designations/${selectedOrganization}`);
+  }
+
+  getUserList(userInfo:any):Observable<UserList>{
+    return this.http.post<UserList>(`${API_ENDPOINTS.referencemaster}/get-users`,userInfo);
   }
 }

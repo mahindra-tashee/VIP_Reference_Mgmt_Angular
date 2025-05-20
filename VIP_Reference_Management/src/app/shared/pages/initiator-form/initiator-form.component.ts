@@ -13,6 +13,10 @@ import { VipReferenceDetailsResponse } from '../../interface/reference-details-r
 
 import { EditorComponent } from '@tinymce/tinymce-angular';
 import { ReplyEditorComponent } from '../reply-editor/reply-editor.component';
+import { OrganizationList } from '../../interface/organization-list.model';
+import { OfficeList } from '../../interface/offices-list.model';
+import { DesignationList } from '../../interface/designation-list.model';
+import { UserList } from '../../interface/user-list.model';
 
 @Component({
   selector: 'app-initiator-form',
@@ -35,14 +39,21 @@ export class InitiatorFormComponent {
   forwardReferenceForm!: FormGroup;
   referenceNo!: string | null;
   refernceDetails: VipReferenceDetailsResponse = {} as VipReferenceDetailsResponse;
+  organizationsList: OrganizationList[] = [];
+  officeTypeList: OfficeList[] = [];
+  designationList: DesignationList[] = [];
+  userLists: UserList[] = [];
   init: EditorComponent['init'] = {
     plugins: 'lists link image table code help wordcount'
   };
+
+
 
   ngOnInit() {
     this.getUserDetails();
     this.initiateReferenceForm();
     this.disabledReferenceField();
+    this.getOrganizationsList();
     this.referenceNo = this.activateRoute.snapshot.paramMap.get('referenceNo');
     if (this.referenceNo !== null && this.referenceNo !== undefined) {
       this.getReferenceDetails(this.referenceNo)
@@ -290,5 +301,96 @@ export class InitiatorFormComponent {
       };
       reader.readAsArrayBuffer(formGroupDts.selectFile);
     });
+  }
+
+  getOrganizationsList() {
+    this.ngxService.start();
+    this.userMgmtService.getOrganizationList().subscribe({
+      next: (response) => {
+        this.organizationsList = response
+        this.ngxService.stop()
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  selectedOrganization(event: any) {
+    const selectedOrg = event.target.value;
+    this.getOfficeList(selectedOrg);
+    this.getDesignationList(selectedOrg)
+  }
+
+  getOfficeList(selectedOrg: string) {
+    this.ngxService.start();
+    this.userMgmtService.getOfficeList(selectedOrg).subscribe({
+      next: (response) => {
+        this.officeTypeList = response;
+        this.ngxService.stop()
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  getDesignationList(selectedOrg: string) {
+    this.ngxService.start();
+    this.userMgmtService.getDesignationList(selectedOrg).subscribe({
+      next: (response) => {
+        this.designationList = response;
+        this.ngxService.stop()
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  getUserList() {
+    this.ngxService.start();
+    const userInfo = {
+      "organization": this.forwardReferenceForm.get("organization")?.value,
+      "office": this.forwardReferenceForm.get("office")?.value,
+      "designation": this.forwardReferenceForm.get("userDesignation")?.value
+    }
+
+    this.userMgmtService.getUserList(userInfo).subscribe({
+      next: (response: any) => {
+        this.userLists = response;
+        this.ngxService.stop()
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  onActionTypeChange() {
+    const value = this.forwardReferenceForm.get('actionType')?.value;
+    const controlsToToggle = [
+    'action',
+    'replyType',
+    'organization',
+    'officeType',
+    'office',
+    'userDesignation',
+    'userName'
+  ];
+
+  if (value === 'final_reply') {
+    controlsToToggle.forEach(control => {
+      this.forwardReferenceForm.get(control)?.disable();
+    });
+  } else {
+    controlsToToggle.forEach(control => {
+      this.forwardReferenceForm.get(control)?.enable();
+    });
+  }
   }
 }
