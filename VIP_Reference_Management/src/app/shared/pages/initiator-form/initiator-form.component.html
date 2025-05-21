@@ -103,9 +103,7 @@
                 <div class="input-container">
                   <select matNativeControl formControlName="designation">
                     <option value="" disabled selected>Select Designation</option>
-                    <option value="so">Section Officer</option>
-                    <option value="us">Under Secretary</option>
-                    <option value="dd">Deputy Director</option>
+                    <option *ngFor="let designation of vipDesignationList" [value]="designation.designationCode">{{designation.designationName}}</option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="addVipReferenceDetails.controls['designation'].hasError('required') && addVipReferenceDetails.controls['designation'].touched">
@@ -120,17 +118,9 @@
                 <div class="input-container">
                   <select matNativeControl formControlName="state">
                     <option value="" disabled selected>Select State</option>
-                    <option value="MH">Maharashtra</option>
-                    <option value="UP">Uttar Pradesh</option>
-                    <option value="BR">Bihar</option>
-                    <option value="GJ">Gujarat</option>
-                    <option value="RJ">Rajasthan</option>
-                    <option value="TN">Tamil Nadu</option>
-                    <option value="KA">Karnataka</option>
-                    <option value="MP">Madhya Pradesh</option>
-                    <option value="WB">West Bengal</option>
-                    <option value="KL">Kerala</option>
-
+                    <option *ngFor="let state of stateList" [value]="state.code">
+                      {{state.name}}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="addVipReferenceDetails.controls['state'].hasError('required') && addVipReferenceDetails.controls['state'].touched">
@@ -151,7 +141,7 @@
                   </mat-error>
                 </div>
               </div>
-              <div class="form-field">
+              <div class="form-field" *ngIf="showReferencNo">
                 <div class="label-field">
                   <label>Prirority</label>
                 </div>
@@ -159,9 +149,8 @@
                 <div class="input-container">
                   <select matNativeControl formControlName="prirority">
                     <option value="" disabled selected>Select Prirority</option>
-                    <option value="HIGH">High</option>
-                    <option value="MEDIUM">Medium</option>
-                    <option value="LOW">Low</option>
+                    <option value="Prirority">Prirority</option>
+                    <option value="Normal">Normal</option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="addVipReferenceDetails.controls['prirority'].hasError('required') && addVipReferenceDetails.controls['prirority'].touched">

@@ -7,6 +7,7 @@ import { API_ENDPOINTS } from '../utilities/api_endpoints';
 import { VipReferenceDetailsResponse } from '../interface/reference-details-response.model';
 import { UserList } from '../interface/user-list.model';
 import { userInfo } from 'os';
+import { State } from '../interface/state.model';
 
 
 @Injectable({
@@ -67,7 +68,16 @@ export class UsermgmtService {
     return this.http.get<any>(`${API_ENDPOINTS.referencemaster}/get-designations/${selectedOrganization}`);
   }
 
+  getVipDesignationList():Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.referencemaster}/vip-designations`)
+  }
+
   getUserList(userInfo:any):Observable<UserList>{
     return this.http.post<UserList>(`${API_ENDPOINTS.referencemaster}/get-users`,userInfo);
   }
+
+  getStateList():Observable<State>{
+    return this.http.get<State>(`${API_ENDPOINTS.referencemaster}/states`);
+  }
+  
 }

@@ -17,6 +17,8 @@ import { OrganizationList } from '../../interface/organization-list.model';
 import { OfficeList } from '../../interface/offices-list.model';
 import { DesignationList } from '../../interface/designation-list.model';
 import { UserList } from '../../interface/user-list.model';
+import { VipDesignationList } from '../../interface/vip-designation-list.model';
+import { State } from '../../interface/state.model';
 
 @Component({
   selector: 'app-initiator-form',
@@ -43,6 +45,8 @@ export class InitiatorFormComponent {
   officeTypeList: OfficeList[] = [];
   designationList: DesignationList[] = [];
   userLists: UserList[] = [];
+  vipDesignationList: VipDesignationList[] = [];
+  stateList: State[] = [];
   init: EditorComponent['init'] = {
     plugins: 'lists link image table code help wordcount'
   };
@@ -54,6 +58,8 @@ export class InitiatorFormComponent {
     this.initiateReferenceForm();
     this.disabledReferenceField();
     this.getOrganizationsList();
+    this.getStateList();
+    this.getVipDesignationList();
     this.referenceNo = this.activateRoute.snapshot.paramMap.get('referenceNo');
     if (this.referenceNo !== null && this.referenceNo !== undefined) {
       this.getReferenceDetails(this.referenceNo)
@@ -99,7 +105,7 @@ export class InitiatorFormComponent {
       "designation": new FormControl("", Validators.required),
       "state": new FormControl("", Validators.required),
       "constituency": new FormControl("", Validators.required),
-      "prirority": new FormControl("", Validators.required),
+      "prirority": new FormControl(""),
       "catgOfSubject": new FormControl("", Validators.required),
       "subCatgOfSubject": new FormControl("", Validators.required),
       "subjectOrIssue": new FormControl("", Validators.required),
@@ -187,6 +193,10 @@ export class InitiatorFormComponent {
       formData.append("comments", comments);
     }
 
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
     this.userMgmtService.addVipReferenceDetails(formData).subscribe({
       next: (res) => {
         this.toastr.success("Reference added successfully");
@@ -266,6 +276,35 @@ export class InitiatorFormComponent {
     }
   }
 
+  getVipDesignationList() {
+    this.ngxService.start();
+    this.userMgmtService.getVipDesignationList().subscribe({
+      next: (response) => {
+        this.vipDesignationList = response;
+        this.ngxService.stop();
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
+  getStateList() {
+    this.ngxService.start();
+    this.userMgmtService.getStateList().subscribe({
+      next: (response: any) => {
+        this.stateList = response;
+
+        this.ngxService.stop();
+      },
+      error: (err) => {
+        console.log(err);
+        this.ngxService.stop();
+      }
+    })
+  }
+
   uploadReply() {
     const dialogRef = this.dialog.open(UploadInitiatorDocsComponent, {
       data: this.addVipReferenceDetails.get('upload') as FormGroup
@@ -307,7 +346,7 @@ export class InitiatorFormComponent {
     this.ngxService.start();
     this.userMgmtService.getOrganizationList().subscribe({
       next: (response) => {
-        this.organizationsList = response
+        this.organizationsList = response;
         this.ngxService.stop()
       },
       error: (err) => {
@@ -374,23 +413,23 @@ export class InitiatorFormComponent {
   onActionTypeChange() {
     const value = this.forwardReferenceForm.get('actionType')?.value;
     const controlsToToggle = [
-    'action',
-    'replyType',
-    'organization',
-    'officeType',
-    'office',
-    'userDesignation',
-    'userName'
-  ];
+      'action',
+      'replyType',
+      'organization',
+      'officeType',
+      'office',
+      'userDesignation',
+      'userName'
+    ];
 
-  if (value === 'final_reply') {
-    controlsToToggle.forEach(control => {
-      this.forwardReferenceForm.get(control)?.disable();
-    });
-  } else {
-    controlsToToggle.forEach(control => {
-      this.forwardReferenceForm.get(control)?.enable();
-    });
-  }
+    if (value === 'final_reply') {
+      controlsToToggle.forEach(control => {
+        this.forwardReferenceForm.get(control)?.disable();
+      });
+    } else {
+      controlsToToggle.forEach(control => {
+        this.forwardReferenceForm.get(control)?.enable();
+      });
+    }
   }
 }
