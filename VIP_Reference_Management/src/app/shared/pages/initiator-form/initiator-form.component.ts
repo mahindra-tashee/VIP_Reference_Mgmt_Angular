@@ -19,6 +19,8 @@ import { DesignationList } from '../../interface/designation-list.model';
 import { UserList } from '../../interface/user-list.model';
 import { VipDesignationList } from '../../interface/vip-designation-list.model';
 import { State } from '../../interface/state.model';
+import { ActionType, ROLE_BASED_ACTION_TYPE_OPTIONS } from '../../interface/action-type.model';
+import { Action, ROLE_BASED_ACTION_OPTIONS } from '../../interface/action.model';
 
 @Component({
   selector: 'app-initiator-form',
@@ -50,6 +52,8 @@ export class InitiatorFormComponent {
   init: EditorComponent['init'] = {
     plugins: 'lists link image table code help wordcount'
   };
+actionTypeOptions: ActionType[] = [];
+actionOptions: Action[] = [];
 
 
 
@@ -84,6 +88,8 @@ export class InitiatorFormComponent {
       this.addVipReferenceDetails.get('dateOfReceiving')?.disable();
       this.addVipReferenceDetails.get('dateOfEntry')?.disable();
       this.addVipReferenceDetails.get('state')?.disable();
+      this.actionTypeOptions = ROLE_BASED_ACTION_TYPE_OPTIONS[this.userDetails.roles[0].roleName];
+      this.actionOptions= ROLE_BASED_ACTION_OPTIONS[this.userDetails.roles[0].roleName];
     }
   }
 

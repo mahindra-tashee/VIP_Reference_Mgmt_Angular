@@ -103,7 +103,8 @@
                 <div class="input-container">
                   <select matNativeControl formControlName="designation">
                     <option value="" disabled selected>Select Designation</option>
-                    <option *ngFor="let designation of vipDesignationList" [value]="designation.designationCode">{{designation.designationName}}</option>
+                    <option *ngFor="let designation of vipDesignationList" [value]="designation.designationCode">
+                      {{designation.designationName}}</option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="addVipReferenceDetails.controls['designation'].hasError('required') && addVipReferenceDetails.controls['designation'].touched">
@@ -255,8 +256,9 @@
                 <div class="input-container">
                   <select matNativeControl formControlName="actionType" (change)="onActionTypeChange()">
                     <option value="" disabled selected>Select Action Type</option>
-                    <option value="final_reply">Final Draft Reply</option>
-                    <option value="forward_for_reply">Forward For Reply</option>
+                    <option *ngFor="let actionType of actionTypeOptions" [value]="actionType.value">
+                      {{ actionType.label }}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['actionType'].hasError('required') && forwardReferenceForm.controls['actionType'].touched">
@@ -265,15 +267,16 @@
                 </div>
               </div>
 
-              <div class="form-field" >
+              <div class="form-field">
                 <div class="label-field">
                   <label>Action</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="action" >
+                  <select matNativeControl formControlName="action">
                     <option value="" disabled selected>Select Action</option>
-                    <option value="forward">Forward</option>
-                    <option value="discard">Discard</option>
+                    <option *ngFor="let action of actionOptions" [value]="action.value">
+                      {{ action.label }}
+                    </option>
                   </select>
                   <mat-error class="mat-error"
                     *ngIf="forwardReferenceForm.controls['action'].hasError('required') && forwardReferenceForm.controls['action'].touched">
@@ -287,7 +290,7 @@
                   <label>Reply Type</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="replyType" >
+                  <select matNativeControl formControlName="replyType">
                     <option value="" disabled selected>Select Reply Type</option>
                     <option value="positive">Positive</option>
                     <option value="negative">Negative</option>
@@ -305,7 +308,7 @@
                   <label>Organization</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="organization" (change)="selectedOrganization($event)" >
+                  <select matNativeControl formControlName="organization" (change)="selectedOrganization($event)">
                     <option value="" disabled selected>Select Organization</option>
                     <option *ngFor="let org of organizationsList" [value]="org.organizationCode">
                       {{ org.organizationCode }}
@@ -341,7 +344,7 @@
                   <label>Office</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="office" >
+                  <select matNativeControl formControlName="office">
                     <option value="" disabled selected>Select Office</option>
                     <option *ngFor="let office of officeTypeList" [value]="office.officeName">
                       {{office.officeName}}
@@ -359,7 +362,7 @@
                   <label>Designation</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="userDesignation" (change)="getUserList()" >
+                  <select matNativeControl formControlName="userDesignation" (change)="getUserList()">
                     <option value="" disabled selected>Select Designation</option>
                     <option *ngFor="let designation of designationList" [value]="designation.designationCode">
                       {{ designation.designationCode }}
@@ -377,7 +380,7 @@
                   <label>User</label>
                 </div>
                 <div class="input-container">
-                  <select matNativeControl formControlName="userName" >
+                  <select matNativeControl formControlName="userName">
                     <option value="" disabled selected>Select User</option>
                     <option *ngFor="let user of userLists" [value]="user.name">{{user.name}}</option>
                   </select>
