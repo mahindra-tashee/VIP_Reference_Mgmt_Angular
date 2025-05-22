@@ -22,16 +22,16 @@ export class UsermgmtService {
     return this.http.post<User>(`${API_ENDPOINTS.userMgmt}/login-user`,userLoginData)
   }
 
-  getDashboardStats(userId:number):Observable<any>{
-    return this.http.get<any>(`${API_ENDPOINTS.reference}/dashboard-stats/${userId}`)
+  getDashboardStats(userName:string):Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/dashboard-stats/${userName}`)
   }
 
-  getVipReferenceList(userId:number):Observable<any>{
-    return this.http.get<any>(`${API_ENDPOINTS.reference}/reference-list/${userId}`)
+  getVipReferenceList(userName:string):Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/reference-list/${userName}`)
   }
 
-  getUserQueueList(userId:number):Observable<any>{
-    return this.http.get<any>(`${API_ENDPOINTS.reference}/user/${userId}/queues`)
+  getUserQueueList(userName:string):Observable<any>{
+    return this.http.get<any>(`${API_ENDPOINTS.reference}/user/${userName}/queues`)
   }
   getQueueReferencesList(queueData:any):Observable<any>{
     return this.http.post<any>(`${API_ENDPOINTS.reference}/user/queue/references`,queueData)
@@ -48,7 +48,13 @@ export class UsermgmtService {
     )
   }
 
-  getReferenceDetails(referenceNumber:string):Observable<VipReferenceDetailsResponse>{
+  updateReference(formData:any):Observable<string>{
+    return this.http.patch(`${API_ENDPOINTS.reference}/updateReference`,formData,
+      { responseType: 'text' ,headers:{}}
+    )
+  }
+
+  getReferenceDetails(referenceNumber:any):Observable<VipReferenceDetailsResponse>{
     return this.http.get<VipReferenceDetailsResponse>(`${API_ENDPOINTS.reference}/reference-details/${referenceNumber}`)
   }
 

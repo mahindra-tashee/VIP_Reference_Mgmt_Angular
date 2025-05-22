@@ -52,8 +52,9 @@ export class InitiatorFormComponent {
   init: EditorComponent['init'] = {
     plugins: 'lists link image table code help wordcount'
   };
-actionTypeOptions: ActionType[] = [];
-actionOptions: Action[] = [];
+  actionTypeOptions: ActionType[] = [];
+  actionOptions: Action[] = [];
+  createdDate = new Date();
 
 
 
@@ -66,7 +67,7 @@ actionOptions: Action[] = [];
     this.getVipDesignationList();
     this.referenceNo = this.activateRoute.snapshot.paramMap.get('referenceNo');
     if (this.referenceNo !== null && this.referenceNo !== undefined) {
-      this.getReferenceDetails(this.referenceNo)
+      this.getReferenceDetails();
     }
   }
 
@@ -89,7 +90,7 @@ actionOptions: Action[] = [];
       this.addVipReferenceDetails.get('dateOfEntry')?.disable();
       this.addVipReferenceDetails.get('state')?.disable();
       this.actionTypeOptions = ROLE_BASED_ACTION_TYPE_OPTIONS[this.userDetails.roles[0].roleName];
-      this.actionOptions= ROLE_BASED_ACTION_OPTIONS[this.userDetails.roles[0].roleName];
+      this.actionOptions = ROLE_BASED_ACTION_OPTIONS[this.userDetails.roles[0].roleName];
     }
   }
 
@@ -170,8 +171,8 @@ actionOptions: Action[] = [];
     const formData = new FormData();
 
     // Append normal fields
-    formData.append("fromUserId", JSON.stringify(this.userDetails.userId));
-    formData.append("toUserId", "2");
+    formData.append("fromLoginId", this.userDetails.userName);
+    formData.append("toLoginId", "12346");
     formData.append("fromRoleId", JSON.stringify(this.userDetails.roles[0].roleId));
     formData.append("toRoleId", "2");
     formData.append("dateOfLetter", this.formatDateToIso(this.addVipReferenceDetails.get("dateOfLetter")?.value));
@@ -186,6 +187,8 @@ actionOptions: Action[] = [];
     formData.append("categoryOfSubject", this.addVipReferenceDetails.get("catgOfSubject")?.value);
     formData.append("subCategoryOfSubject", this.addVipReferenceDetails.get("subCatgOfSubject")?.value);
     formData.append("subject", this.addVipReferenceDetails.get("subjectOrIssue")?.value);
+    formData.append("createdBy", this.userDetails.name);
+    formData.append("createdAt", this.formatDateToIso(this.createdDate));
 
     // Append uploaded file
     const uploadGroup = this.addVipReferenceDetails.get('upload') as FormGroup;
@@ -210,6 +213,7 @@ actionOptions: Action[] = [];
         this.ngxService.stop();
       },
       error: (err) => {
+        console.log(err);
         this.toastr.error("please enter valid details");
         this.ngxService.stop();
       }
@@ -234,9 +238,9 @@ actionOptions: Action[] = [];
   }
 
 
-  getReferenceDetails(referenceNo: string) {
+  getReferenceDetails() {
     this.ngxService.start();
-    this.userMgmtService.getReferenceDetails(referenceNo).subscribe({
+    this.userMgmtService.getReferenceDetails(this.referenceNo).subscribe({
       next: (res: VipReferenceDetailsResponse) => {
         this.refernceDetails = res;
         this.setReferenceDetails();
@@ -264,21 +268,22 @@ actionOptions: Action[] = [];
       catgOfSubject: this.refernceDetails.categoryOfSubject,
       subCatgOfSubject: this.refernceDetails.subCategoryOfSubject,
       subjectOrIssue: this.refernceDetails.subject,
+
     });
 
     // Populate the file and document details
     if (this.refernceDetails.documents && this.refernceDetails.documents.length > 0) {
-      // this.addVipReferenceDetails.get('upload')?.patchValue({
-      //   file: this.refernceDetails.documents[0].fileName, // Assuming you're uploading only one file
-      //   documentType: this.refernceDetails.documents[0].documentType,
-      //   comments: this.refernceDetails.documents[0].comments
-      // });
+      this.addVipReferenceDetails.get('upload')?.patchValue({
+        file: this.refernceDetails.documents[0].fileName, // Assuming you're uploading only one file
+        documentType: this.refernceDetails.documents[0].documentType,
+        comments: this.refernceDetails.documents[0].comments
+      });
 
-      if (this.refernceDetails.documents[0].fileName) {
-        console.log('assets/pdf' + this.refernceDetails.documents[0].fileName)
-        this.pdfSrc = 'assets/pdf' + this.refernceDetails.documents[0].fileName;
-        console.log(this.pdfSrc)
-      }
+      // if (this.refernceDetails.documents[0].fileName) {
+      //   console.log('assets/pdf' + this.refernceDetails.documents[0].fileName)
+      //   this.pdfSrc = 'assets/pdf' + this.refernceDetails.documents[0].fileName;
+      //   console.log(this.pdfSrc)
+      // }
     }
   }
 
@@ -437,5 +442,36 @@ actionOptions: Action[] = [];
         this.forwardReferenceForm.get(control)?.enable();
       });
     }
+  }
+
+  updateVipReferenceDetails() {
+    this.ngxService.start();
+    const updatedData = {
+      nameOfDignitary: this.addVipReferenceDetails.get("nameOfDiginitary")?.value,
+      emailId: this.addVipReferenceDetails.get("emailId")?.value,
+      designation: this.addVipReferenceDetails.get("designation")?.value,
+      state: this.addVipReferenceDetails.get("state")?.value,
+      constituency: this.addVipReferenceDetails.get("constituency")?.value,
+      prirority: this.addVipReferenceDetails.get("prirority")?.value,
+      catgOfSubject: this.addVipReferenceDetails.get("catgOfSubject")?.value,
+      subCatgOfSubject: this.addVipReferenceDetails.get("subCatgOfSubject")?.value,
+      subjectOrIssue: this.addVipReferenceDetails.get("subjectOrIssue")?.value,
+      vipReferenceId: this.refernceDetails.referenceId,
+      updatedBy: this.userDetails.name,
+      updatedAt: this.formatDateToIso(this.createdDate)
+    }
+  
+    this.userMgmtService.updateReference(updatedData).subscribe({
+      next: (res) => {
+        this.toastr.success("Reference updated successfully");
+        this.getReferenceDetails();
+        this.ngxService.stop();
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error("please enter valid details");
+        this.ngxService.stop();
+      }
+    })
   }
 }

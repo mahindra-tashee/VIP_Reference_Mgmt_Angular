@@ -54,7 +54,7 @@ export class VipInitiatorComponent {
   getQueueReferences(){
     this.ngxService.start();
     const queueData={
-      userId:this.userDetails.userId,
+      loginId:this.userDetails.userName,
       queue:this.selectedQueueData
     }
     this.userMgmtService.getQueueReferencesList(queueData).subscribe({

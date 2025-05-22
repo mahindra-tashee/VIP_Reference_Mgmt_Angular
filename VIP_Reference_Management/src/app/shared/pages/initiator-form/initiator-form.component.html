@@ -217,7 +217,8 @@
               <div class="form-field">
                 <div class="btn-group">
                   <button mat-raised-button color="primary">Save</button>
-                  <button mat-raised-button color="primary" (click)="addVipReferencDetails()">Submit</button>
+                  <button mat-raised-button color="primary" (click)="addVipReferencDetails()" *ngIf="!showReferencNo">Submit</button>
+                  <button mat-raised-button color="primary" (click)="updateVipReferenceDetails()" *ngIf="showReferencNo">Update</button>
                 </div>
               </div>
             </form>
@@ -410,6 +411,7 @@
               <div class="form-field">
                 <div class="btn-group">
                   <button mat-raised-button color="primary" (click)="addVipReferencDetails()">Submit</button>
+
                 </div>
               </div>
             </form>

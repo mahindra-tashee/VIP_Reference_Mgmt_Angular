@@ -84,10 +84,9 @@ export class DashboardComponent implements AfterViewInit {
 
   getDashboardStats(){
     this.ngxService.start();
-    this.userMgmtService.getDashboardStats(this.userDetails.userId).subscribe({
+    this.userMgmtService.getDashboardStats(this.userDetails.userName).subscribe({
       next:(res:any)=>{
         const response=res;
-        console.log(res)
         this.config = {
           type: 'doughnut',
           data: {
@@ -123,7 +122,7 @@ export class DashboardComponent implements AfterViewInit {
 
   getVipReferenceList(){
     this.ngxService.start()
-    this.userMgmtService.getVipReferenceList(this.userDetails.userId).subscribe({
+    this.userMgmtService.getVipReferenceList(this.userDetails.userName).subscribe({
       next:(res)=>{
         this.VipReferenceData.data=res;
         this.initiatePaginator();

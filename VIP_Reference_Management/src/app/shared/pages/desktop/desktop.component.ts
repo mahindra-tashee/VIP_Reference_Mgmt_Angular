@@ -45,7 +45,7 @@ export class DesktopComponent {
   }
   getUserQueues() {
     this.ngxService.start();
-    this.userMgmtService.getUserQueueList(this.userDetails.userId).subscribe({
+    this.userMgmtService.getUserQueueList(this.userDetails.userName).subscribe({
       next: (res) => {
         const queues = res.queues;
         this.queuesList = []; // Clear old list
